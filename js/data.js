@@ -37,9 +37,10 @@ function checkCases(cases, patterns) {
 }
 
 export async function loadData() {
-  const [cases, patternList] = await Promise.all([
+  const [cases, patternList, config] = await Promise.all([
     loadJson('data/cases.json'),
     loadJson('data/patterns.json'),
+    loadJson('data/config.json'),
   ]);
 
   // Turn the list into a lookup so we can find a pattern by its id.
@@ -49,5 +50,5 @@ export async function loadData() {
   }
 
   checkCases(cases, patterns);
-  return { cases, patterns };
+  return { cases, patterns, config };
 }

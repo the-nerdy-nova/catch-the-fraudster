@@ -22,5 +22,17 @@
       "Earlier travel bookings on the account"
     ],
     "howToRespond": "Approve. Declining leaves a real customer stranded without money abroad."
+  },
+  {
+    "id": "crypto-cash-out",
+    "name": "Crypto cash-out to a fresh wallet",
+    "plainEnglish": "Stolen or fraudulent funds are converted to crypto and sent to a brand-new wallet, where they are very hard to recover.",
+    "warningSigns": [
+      "A very new account with deposits but no normal activity",
+      "Several different cards funding one account",
+      "Withdrawal of nearly the whole balance soon after deposit",
+      "Destination wallet created very recently or linked to risky wallets"
+    ],
+    "howToRespond": "Hold the withdrawal and review where the deposits came from before any funds leave."
   }
 ]

@@ -1,19 +1,23 @@
 // Starts the game and connects the buttons to the game logic.
 
 import { loadData } from './data.js';
-import { renderCase, renderReveal, showNotice } from './ui.js';
+import { renderCase, renderReveal, showNotice, toggleCluePanel } from './ui.js';
 
 let cases = [];
 let patterns = {};
+let config = {};
 let caseIndex = 0;
+// Which clues the player has revealed on the current case.
+let openedClues = new Set();
 
 function showCurrentCase() {
-  renderCase(cases[caseIndex]);
+  openedClues = new Set();
+  renderCase(cases[caseIndex], config.clueCostSeconds, (key) => openedClues.add(key));
 }
 
 function decide(decision) {
   const currentCase = cases[caseIndex];
-  renderReveal(currentCase, decision, patterns[currentCase.patternId]);
+  renderReveal(currentCase, decision, patterns[currentCase.patternId], openedClues);
 }
 
 function nextCase() {
@@ -24,7 +28,7 @@ function nextCase() {
 
 async function start() {
   try {
-    ({ cases, patterns } = await loadData());
+    ({ cases, patterns, config } = await loadData());
   } catch (error) {
     console.error(error);
     showNotice('The game data could not be loaded. Check the browser console for details.');
@@ -33,6 +37,7 @@ async function start() {
 
   document.getElementById('btn-approve').addEventListener('click', () => decide('approve'));
   document.getElementById('btn-decline').addEventListener('click', () => decide('decline'));
+  document.getElementById('btn-investigate').addEventListener('click', toggleCluePanel);
   document.getElementById('btn-next').addEventListener('click', nextCase);
 
   showCurrentCase();

@@ -90,8 +90,9 @@
 
 .btn {
   flex: 1;
+  min-width: 0;
   min-height: 48px;
-  padding: 12px 16px;
+  padding: 12px 8px;
   border: 1px solid transparent;
   border-radius: 10px;
   color: #fff;
@@ -124,6 +125,80 @@
 
 .btn-primary {
   background: var(--accent);
+}
+
+.btn-investigate {
+  background: var(--surface-2);
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+/* Investigate panel */
+.clue-panel {
+  margin-bottom: 20px;
+}
+
+.clue-hint {
+  margin-bottom: 10px;
+  color: var(--text-dim);
+  font-size: 14px;
+}
+
+.clue-list {
+  display: grid;
+  gap: 8px;
+}
+
+.clue {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.clue.is-open {
+  border-color: var(--accent);
+}
+
+.clue-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  background: none;
+  border: 0;
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.clue-toggle:disabled {
+  cursor: default;
+}
+
+.clue-toggle:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: -2px;
+}
+
+.clue-cost {
+  flex-shrink: 0;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.clue.is-open .clue-cost {
+  color: var(--text-dim);
+}
+
+.clue-text {
+  padding: 0 12px 12px;
 }
 
 /* Case closed panel */
@@ -187,6 +262,52 @@
   font-size: 13px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+}
+
+.giveaways {
+  display: grid;
+  gap: 8px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.giveaway {
+  padding: 10px 12px;
+  background: var(--surface-2);
+  border-left: 3px solid var(--border);
+  border-radius: 8px;
+}
+
+.giveaway.is-checked {
+  border-left-color: var(--good);
+}
+
+.giveaway.is-missed {
+  border-left-color: var(--warn);
+}
+
+.giveaway-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.giveaway-tag {
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.giveaway.is-checked .giveaway-tag {
+  color: var(--good);
+}
+
+.giveaway.is-missed .giveaway-tag {
+  color: var(--warn);
 }
 
 .signs {

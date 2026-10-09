@@ -48,5 +48,30 @@
     },
     "explanation": "Tomas is on holiday. The country is unusual for him, but everything else is consistent: his own phone, normal holiday spending and a flight he booked weeks ago.",
     "giveaways": ["device", "history"]
+  },
+  {
+    "id": "cry-001",
+    "level": 1,
+    "truth": "fraud",
+    "patternId": "crypto-cash-out",
+    "card": {
+      "customer": "Dario Venn",
+      "amount": 3150,
+      "currency": "GBP",
+      "method": "Crypto withdrawal (stablecoin)",
+      "destination": "External wallet 0x7c…e41a",
+      "country": "United Kingdom",
+      "time": "02:47",
+      "accountAge": "2 days"
+    },
+    "clues": {
+      "device": "Device first seen 2 days ago. Connection is through a VPN.",
+      "velocity": "3 card deposits in the last 40 minutes from 3 different cards, then this withdrawal for almost the full balance.",
+      "history": "Account opened 2 days ago. No trading or spending, only deposits.",
+      "contact": "\"Please release my funds now. I need it urgent.\"",
+      "blockchain": "Destination wallet was created 35 minutes ago and has no history. It has sent funds on to a wallet flagged as high risk."
+    },
+    "explanation": "This account exists only to turn card deposits into crypto and move it out of reach. Several different cards fund a brand-new account, and the money leaves straight away to a wallet created minutes earlier.",
+    "giveaways": ["velocity", "blockchain"]
   }
 ]

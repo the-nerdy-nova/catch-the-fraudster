@@ -32,8 +32,17 @@
         <span id="case-method" class="method"></span>
       </div>
       <dl id="case-fields" class="fields"></dl>
+
+      <!-- Extra clues, shown after pressing Investigate -->
+      <div id="clue-panel" class="clue-panel" hidden>
+        <p id="clue-hint" class="clue-hint"></p>
+        <div id="clue-list" class="clue-list"></div>
+      </div>
+
       <div class="actions">
         <button id="btn-approve" class="btn btn-approve" type="button">Approve</button>
+        <button id="btn-investigate" class="btn btn-investigate" type="button"
+                aria-expanded="false" aria-controls="clue-panel">Investigate</button>
         <button id="btn-decline" class="btn btn-decline" type="button">Decline</button>
       </div>
     </section>
@@ -48,6 +57,8 @@
       <p id="reveal-outcome" class="outcome"></p>
       <h3 id="reveal-pattern" class="pattern-name"></h3>
       <p id="reveal-explanation"></p>
+      <h4 class="signs-title">Clues that gave it away</h4>
+      <ul id="reveal-giveaways" class="giveaways"></ul>
       <h4 class="signs-title">Warning signs to remember</h4>
       <ul id="reveal-signs" class="signs"></ul>
       <div class="actions">
