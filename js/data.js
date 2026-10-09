@@ -41,11 +41,21 @@ function checkCases(cases, patterns, config) {
   }
 }
 
+function checkLevels(levels, cases) {
+  for (const level of levels) {
+    const available = cases.filter((c) => c.level === level.id).length;
+    if (available < level.casesPerShift) {
+      console.warn(`Level ${level.id}: wants ${level.casesPerShift} cases per shift but only ${available} exist`);
+    }
+  }
+}
+
 export async function loadData() {
-  const [cases, patternList, config] = await Promise.all([
+  const [cases, patternList, config, levels] = await Promise.all([
     loadJson('data/cases.json'),
     loadJson('data/patterns.json'),
     loadJson('data/config.json'),
+    loadJson('data/levels.json'),
   ]);
 
   // Turn the list into a lookup so we can find a pattern by its id.
@@ -55,5 +65,6 @@ export async function loadData() {
   }
 
   checkCases(cases, patterns, config);
-  return { cases, patterns, config };
+  checkLevels(levels, cases);
+  return { cases, patterns, patternList, config, levels };
 }

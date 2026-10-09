@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "Trainee",
+    "description": "Obvious fraud and clear-cut genuine customers. A steady queue.",
+    "casesPerShift": 12,
+    "arrivalSeconds": 14,
+    "patienceSeconds": 45,
+    "unlockPercent": 65
+  },
+  {
+    "id": 2,
+    "name": "Analyst",
+    "description": "Mixed patterns and more genuine customers who look suspicious.",
+    "casesPerShift": 14,
+    "arrivalSeconds": 12,
+    "patienceSeconds": 45,
+    "unlockPercent": 65
+  },
+  {
+    "id": 3,
+    "name": "Senior",
+    "description": "Subtle cases, scams where the victim is the real customer, and a faster queue.",
+    "casesPerShift": 16,
+    "arrivalSeconds": 10,
+    "patienceSeconds": 40,
+    "unlockPercent": 65
+  }
+]

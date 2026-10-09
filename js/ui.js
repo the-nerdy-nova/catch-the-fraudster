@@ -11,7 +11,7 @@ const CLUE_LABELS = {
   blockchain: 'Blockchain view',
 };
 
-const SCREENS = ['start', 'shift', 'report'];
+const SCREENS = ['start', 'shift', 'report', 'encyclopedia'];
 
 export function showScreen(name) {
   for (const screen of SCREENS) {
@@ -268,7 +268,49 @@ function addStat(grid, label, value) {
   grid.append(wrap);
 }
 
-export function renderReport(report) {
+// Draws the level buttons on the menu.
+// levels: [{ id, name, description, locked, lockedHint, best }]
+export function renderMenu(levels, encyclopediaLabel, onPlay) {
+  const list = el('level-list');
+  list.replaceChildren();
+  for (const level of levels) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'level';
+    button.disabled = level.locked;
+
+    const title = document.createElement('span');
+    title.className = 'level-title';
+    title.textContent = `Level ${level.id} · ${level.name}`;
+
+    const description = document.createElement('span');
+    description.className = 'level-description';
+    description.textContent = level.description;
+
+    const status = document.createElement('span');
+    status.className = 'level-status';
+    if (level.locked) {
+      status.textContent = `Locked · ${level.lockedHint}`;
+    } else if (level.best) {
+      status.textContent = `Best: ${level.best.score} points · ${level.best.rank}`;
+    } else {
+      status.textContent = 'Not played yet';
+    }
+
+    button.append(title, description, status);
+    button.addEventListener('click', () => onPlay(level.id));
+    list.append(button);
+  }
+  el('btn-encyclopedia').textContent = encyclopediaLabel;
+}
+
+// extras: { levelLabel, isNewBest, message }
+export function renderReport(report, extras) {
+  el('report-level').textContent = `Shift report · ${extras.levelLabel}`;
+  el('report-best').hidden = !extras.isNewBest;
+  const message = el('report-message');
+  message.textContent = extras.message;
+  message.hidden = !extras.message;
   el('report-rank').textContent = report.rank;
   el('report-score').textContent = `${report.score} points`;
 

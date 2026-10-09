@@ -32,9 +32,12 @@
         <li>Don't leave customers waiting. They get angry.</li>
         <li>The clock pauses while you read each "Case closed" explanation.</li>
       </ul>
+      <span class="label">Choose a level</span>
+      <div id="level-list" class="level-list"></div>
       <div class="actions">
-        <button id="btn-start" class="btn btn-primary" type="button">Start shift</button>
+        <button id="btn-encyclopedia" class="btn btn-investigate" type="button">Fraud Encyclopedia</button>
       </div>
+      <button id="btn-reset" class="link-button" type="button">Reset my progress</button>
     </section>
 
     <!-- Screen 2: the shift -->
@@ -109,13 +112,27 @@
 
     <!-- Screen 3: end-of-shift report card -->
     <section id="screen-report" class="card" hidden>
-      <span class="label">Shift report</span>
+      <span id="report-level" class="label">Shift report</span>
       <h2 id="report-rank" class="report-rank"></h2>
       <p id="report-score" class="report-score"></p>
+      <p id="report-best" class="report-best" hidden>New best score for this level</p>
       <dl id="report-stats" class="stats"></dl>
+      <p id="report-message" class="report-message" hidden></p>
       <div class="actions">
         <button id="btn-again" class="btn btn-primary" type="button">Play again</button>
+        <button id="btn-menu" class="btn btn-investigate" type="button">Menu</button>
       </div>
+    </section>
+
+    <!-- Screen 4: Fraud Encyclopedia -->
+    <section id="screen-encyclopedia" class="card" hidden>
+      <span class="label">Reference</span>
+      <h2 class="start-title">Fraud Encyclopedia</h2>
+      <p id="encyclopedia-count" class="outcome"></p>
+      <div class="actions encyclopedia-actions">
+        <button id="btn-encyclopedia-back" class="btn btn-investigate" type="button">Back to menu</button>
+      </div>
+      <div id="encyclopedia-list"></div>
     </section>
   </main>
 

@@ -6,18 +6,56 @@ import {
   timeLeft, isLastCase, buildReport,
 } from './game.js';
 import {
-  showScreen, showNotice, renderHud, renderQueue, renderCase,
+  showScreen, showNotice, renderMenu, renderHud, renderQueue, renderCase,
   renderReveal, renderReport, toggleCluePanel,
 } from './ui.js';
+import { renderEncyclopedia } from './encyclopedia.js';
+import { loadProgress, saveProgress, clearProgress } from './storage.js';
 
 const TICK_MS = 200;
 
 let cases = [];
 let patterns = {};
+let patternList = [];
 let config = {};
+let levels = [];
+let progress = loadProgress();
 let shift = null;
 let timerId = null;
 let lastTick = 0;
+
+// ---- Menu ----
+
+function showMenu() {
+  const menuLevels = levels.map((level) => {
+    const previous = levels.find((l) => l.id === level.id - 1);
+    return {
+      id: level.id,
+      name: level.name,
+      description: level.description,
+      locked: level.id > progress.unlockedLevel,
+      lockedHint: previous ? `pass Level ${previous.id} to unlock` : '',
+      best: progress.best[level.id],
+    };
+  });
+  const found = patternList.filter((p) => progress.seen.includes(p.id)).length;
+  renderMenu(menuLevels, `Fraud Encyclopedia (${found} of ${patternList.length})`, startShift);
+  showScreen('start');
+}
+
+function showEncyclopedia() {
+  renderEncyclopedia(patternList, progress.seen);
+  showScreen('encyclopedia');
+}
+
+function resetProgress() {
+  if (window.confirm('Reset your unlocked levels, best scores and encyclopedia?')) {
+    progress = clearProgress();
+    showMenu();
+  }
+}
+
+// ---- Shift ----
 
 // How a waiting customer should look in the queue strip.
 function queueState(customer) {
@@ -25,7 +63,7 @@ function queueState(customer) {
     return 'angry';
   }
   const waited = shift.elapsed - customer.arrivedAt;
-  return waited >= config.patienceSeconds * 0.6 ? 'impatient' : 'calm';
+  return waited >= shift.config.patienceSeconds * 0.6 ? 'impatient' : 'calm';
 }
 
 function refreshHud() {
@@ -47,9 +85,36 @@ function showCurrentCase() {
   refreshHud();
 }
 
+// Saves the result and works out what to tell the player about unlocking.
+function recordResult(report) {
+  const level = shift.level;
+  const next = levels.find((l) => l.id === level.id + 1);
+  const passed = report.score >= report.unlockTarget;
+
+  const previousBest = progress.best[level.id];
+  const isNewBest = !previousBest || report.score > previousBest.score;
+  if (isNewBest) {
+    progress.best[level.id] = { score: report.score, rank: report.rank };
+  }
+
+  let message = '';
+  if (next && passed && progress.unlockedLevel < next.id) {
+    progress.unlockedLevel = next.id;
+    message = `Level ${next.id} "${next.name}" unlocked.`;
+  } else if (next && !passed && progress.unlockedLevel < next.id) {
+    message = `Score ${report.unlockTarget} points or more on this shift to unlock Level ${next.id}. You scored ${report.score}.`;
+  } else if (!next && passed) {
+    message = 'You have passed the highest level.';
+  }
+
+  saveProgress(progress);
+  return { levelLabel: `Level ${level.id} · ${level.name}`, isNewBest, message };
+}
+
 function endShift() {
   clearInterval(timerId);
-  renderReport(buildReport(shift));
+  const report = buildReport(shift);
+  renderReport(report, recordResult(report));
   showScreen('report');
 }
 
@@ -82,6 +147,13 @@ function onDecide(decision) {
   }
   const currentCase = shift.current.case;
   const result = decide(shift, decision);
+
+  // The player has now met this pattern, so add it to the encyclopedia.
+  if (!progress.seen.includes(currentCase.patternId)) {
+    progress.seen.push(currentCase.patternId);
+    saveProgress(progress);
+  }
+
   renderReveal(currentCase, result, patterns[currentCase.patternId], shift.openedClues, isLastCase(shift));
   refreshHud();
 }
@@ -95,31 +167,38 @@ function onNext() {
   }
 }
 
-function startShift() {
-  shift = createShift(cases, config);
+function startShift(levelId) {
+  const level = levels.find((l) => l.id === levelId);
+  shift = createShift(cases, config, level);
   showScreen('shift');
   showCurrentCase();
   lastTick = performance.now();
   timerId = setInterval(tick, TICK_MS);
 }
 
+// ---- Start-up ----
+
 async function start() {
   try {
-    ({ cases, patterns, config } = await loadData());
+    ({ cases, patterns, patternList, config, levels } = await loadData());
   } catch (error) {
     console.error(error);
     showNotice('The game data could not be loaded. Check the browser console for details.');
     return;
   }
 
-  document.getElementById('btn-start').addEventListener('click', startShift);
-  document.getElementById('btn-again').addEventListener('click', startShift);
-  document.getElementById('btn-approve').addEventListener('click', () => onDecide('approve'));
-  document.getElementById('btn-decline').addEventListener('click', () => onDecide('decline'));
-  document.getElementById('btn-investigate').addEventListener('click', toggleCluePanel);
-  document.getElementById('btn-next').addEventListener('click', onNext);
+  const on = (id, handler) => document.getElementById(id).addEventListener('click', handler);
+  on('btn-approve', () => onDecide('approve'));
+  on('btn-decline', () => onDecide('decline'));
+  on('btn-investigate', toggleCluePanel);
+  on('btn-next', onNext);
+  on('btn-again', () => startShift(shift.level.id));
+  on('btn-menu', showMenu);
+  on('btn-encyclopedia', showEncyclopedia);
+  on('btn-encyclopedia-back', showMenu);
+  on('btn-reset', resetProgress);
 
-  showScreen('start');
+  showMenu();
 }
 
 // On a file:// address the data cannot load; index.html already explains why.

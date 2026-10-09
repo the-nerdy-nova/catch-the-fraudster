@@ -1,8 +1,5 @@
 {
   "shiftSeconds": 180,
-  "casesPerShift": 12,
-  "arrivalSeconds": 14,
-  "patienceSeconds": 45,
   "clueCostSeconds": 10,
   "points": {
     "fraudCaught": 100,
@@ -12,8 +9,8 @@
     "angryCustomer": -20
   },
   "speedBonus": [
-    { "withinSeconds": 8, "points": 30 },
-    { "withinSeconds": 15, "points": 15 }
+    { "withinSeconds": 8, "points": 20 },
+    { "withinSeconds": 15, "points": 10 }
   ],
   "ranks": [
     { "name": "Fraud Hunter", "minPercent": 85 },

@@ -12,10 +12,14 @@ function shuffle(list) {
   return copy;
 }
 
-export function createShift(allCases, config) {
-  const deck = shuffle(allCases).slice(0, config.casesPerShift);
+// A shift uses the general settings from config.json plus the chosen
+// level's own pace (cases per shift, arrival speed, patience).
+export function createShift(allCases, config, level) {
+  const levelCases = allCases.filter((c) => c.level === level.id);
+  const deck = shuffle(levelCases).slice(0, level.casesPerShift);
   const shift = {
-    config,
+    config: { ...config, ...level },
+    level,
     deck,
     upcoming: [...deck], // cases that have not arrived yet
     queue: [],           // customers waiting behind the current one
@@ -132,10 +136,13 @@ export function isLastCase(shift) {
 }
 
 export function buildReport(shift) {
-  const { stats, deck, config } = shift;
+  const { stats, deck, config, level } = shift;
+  const max = maxScore(deck, config);
   return {
     score: stats.score,
-    rank: rankFor(stats.score, maxScore(deck, config), config),
+    rank: rankFor(stats.score, max, config),
+    // Points needed this shift to unlock the next level.
+    unlockTarget: Math.ceil((max * level.unlockPercent) / 100),
     fraudCaught: stats.fraudCaught,
     fraudTotal: deck.filter((c) => c.truth === 'fraud').length,
     losses: stats.losses,

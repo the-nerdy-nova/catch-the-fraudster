@@ -19,5 +19,15 @@ Then open http://localhost:8000. Press `Ctrl+C` in Terminal to stop the server.
 
 - `index.html`: the single page
 - `css/`: the look of the game
-- `js/`: the game code (`main.js` starts it, `data.js` loads content, `ui.js` draws the page)
-- `data/`: all game content (`cases.json` for transactions, `patterns.json` for fraud patterns)
+- `js/`: the game code
+  - `main.js` starts the game and connects the buttons
+  - `data.js` loads and checks the content
+  - `game.js` runs a shift (clock, queue, decisions)
+  - `scoring.js` turns decisions into points and a rank
+  - `ui.js` and `encyclopedia.js` draw the page
+  - `storage.js` saves progress in the browser
+- `data/`: all game content
+  - `cases.json`: every transaction
+  - `patterns.json`: fraud patterns and genuine look-alikes
+  - `levels.json`: pace and unlock threshold for each level
+  - `config.json`: points, speed bonus, ranks and clue cost
