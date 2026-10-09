@@ -22,7 +22,10 @@
       "blockchain": null
     },
     "explanation": "Someone other than Mira got into her account. They changed the password and phone number to lock her out, added a brand-new payee and tried to empty the balance in the middle of the night.",
-    "giveaways": ["device", "history"]
+    "giveaways": [
+      "device",
+      "history"
+    ]
   },
   {
     "id": "gen-001",
@@ -47,7 +50,10 @@
       "blockchain": null
     },
     "explanation": "Tomas is on holiday. The country is unusual for him, but everything else is consistent: his own phone, normal holiday spending and a flight he booked weeks ago.",
-    "giveaways": ["device", "history"]
+    "giveaways": [
+      "device",
+      "history"
+    ]
   },
   {
     "id": "cry-001",
@@ -72,6 +78,93 @@
       "blockchain": "Destination wallet was created 35 minutes ago and has no history. It has sent funds on to a wallet flagged as high risk."
     },
     "explanation": "This account exists only to turn card deposits into crypto and move it out of reach. Several different cards fund a brand-new account, and the money leaves straight away to a wallet created minutes earlier.",
-    "giveaways": ["velocity", "blockchain"]
+    "giveaways": [
+      "velocity",
+      "blockchain"
+    ]
+  },
+  {
+    "id": "ct-001",
+    "level": 1,
+    "truth": "fraud",
+    "patternId": "card-testing",
+    "card": {
+      "customer": "Priya Ramanathan",
+      "amount": 1.0,
+      "currency": "USD",
+      "method": "Card payment (online)",
+      "destination": "QuickGive Online",
+      "country": "United States",
+      "time": "04:05",
+      "accountAge": "3 years"
+    },
+    "clues": {
+      "device": "Card details were typed into a website. The payment did not come from the customer's phone or app.",
+      "velocity": "6 payments between $0.50 and $2.00 in the last 10 minutes at 4 different online merchants. 3 were refused for a wrong security code.",
+      "history": "Customer normally uses the card in shops near home a few times a week. No online spending abroad before.",
+      "contact": "\"I haven't bought anything today. I was asleep.\"",
+      "blockchain": null
+    },
+    "explanation": "Someone has Priya's card number and is checking whether it works. The amounts are tiny so they go unnoticed. If these go through, a much larger purchase usually follows.",
+    "giveaways": [
+      "velocity",
+      "contact"
+    ]
+  },
+  {
+    "id": "gen-002",
+    "level": 1,
+    "truth": "genuine",
+    "patternId": "genuine-large-purchase",
+    "card": {
+      "customer": "Helena Brandt",
+      "amount": 4890,
+      "currency": "GBP",
+      "method": "Card payment",
+      "destination": "Oakline Kitchens Ltd",
+      "country": "United Kingdom",
+      "time": "11:20",
+      "accountAge": "9 years"
+    },
+    "clues": {
+      "device": "Usual laptop, on the same home internet connection as the last 3 years.",
+      "velocity": "Only payment today. A £500 deposit was paid to the same merchant 6 weeks ago.",
+      "history": "No recent changes to login or contact details. The customer moved savings into this account yesterday.",
+      "contact": "\"Yes, it's the final payment for my new kitchen. They fit it next week.\"",
+      "blockchain": null
+    },
+    "explanation": "A large amount on its own is not fraud. Helena paid a deposit to this merchant weeks ago, moved her own savings in to cover the bill and is using her usual laptop at home.",
+    "giveaways": [
+      "velocity",
+      "history"
+    ]
+  },
+  {
+    "id": "gen-003",
+    "level": 1,
+    "truth": "genuine",
+    "patternId": "genuine-new-device",
+    "card": {
+      "customer": "Kofi Mensah",
+      "amount": 320,
+      "currency": "GBP",
+      "method": "Bank transfer",
+      "destination": "Ama Mensah (existing payee)",
+      "country": "United Kingdom",
+      "time": "18:05",
+      "accountAge": "5 years"
+    },
+    "clues": {
+      "device": "New phone, first seen 3 days ago. Same home internet connection as usual.",
+      "velocity": "1 transfer today.",
+      "history": "No change to password, email or phone number. This payee has been paid on the same day each month for 2 years.",
+      "contact": "\"Got a new phone at the weekend! Just sending my sister her share of the rent as usual.\"",
+      "blockchain": null
+    },
+    "explanation": "A new device looks alarming, but nothing else has changed. Kofi's contact details are the same, he is at home and he is paying someone he has paid every month for two years.",
+    "giveaways": [
+      "device",
+      "history"
+    ]
   }
 ]

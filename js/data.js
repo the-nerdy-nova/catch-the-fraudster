@@ -15,8 +15,11 @@ const CARD_FIELDS = [
 
 // Prints a warning for any case that would break the game, so content
 // mistakes show up in the browser console straight away.
-function checkCases(cases, patterns) {
+function checkCases(cases, patterns, config) {
   for (const c of cases) {
+    if (config.ratesToReportCurrency[c.card?.currency] === undefined) {
+      console.warn(`Case ${c.id}: no exchange rate in config.json for "${c.card?.currency}"`);
+    }
     if (c.truth !== 'fraud' && c.truth !== 'genuine') {
       console.warn(`Case ${c.id}: "truth" must be "fraud" or "genuine"`);
     }
@@ -49,6 +52,6 @@ export async function loadData() {
     patterns[pattern.id] = pattern;
   }
 
-  checkCases(cases, patterns);
+  checkCases(cases, patterns, config);
   return { cases, patterns, config };
 }

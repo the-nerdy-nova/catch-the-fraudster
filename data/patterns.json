@@ -34,5 +34,41 @@
       "Destination wallet created very recently or linked to risky wallets"
     ],
     "howToRespond": "Hold the withdrawal and review where the deposits came from before any funds leave."
+  },
+  {
+    "id": "card-testing",
+    "name": "Card testing",
+    "plainEnglish": "A criminal who has a card number makes tiny payments to find out whether the card works before using it for something bigger.",
+    "warningSigns": [
+      "Several very small payments in a few minutes",
+      "Different online merchants the customer has never used",
+      "Refused attempts with a wrong security code or expiry date",
+      "Activity while the customer would normally be asleep"
+    ],
+    "howToRespond": "Decline, block the card and send the customer a replacement."
+  },
+  {
+    "id": "genuine-large-purchase",
+    "name": "Genuine customer: big one-off purchase",
+    "plainEnglish": "A real customer making an unusually large payment for something planned. A high amount on its own is not fraud.",
+    "warningSigns": [
+      "Earlier deposit or contact with the same merchant",
+      "Customer moved their own money in to cover it",
+      "Usual device and usual location",
+      "Customer can explain the purchase in detail"
+    ],
+    "howToRespond": "Approve. Blocking a planned purchase is frustrating and can cost the customer their order."
+  },
+  {
+    "id": "genuine-new-device",
+    "name": "Genuine customer: new phone",
+    "plainEnglish": "A real customer who has replaced their phone. A new device matters most when other details change with it.",
+    "warningSigns": [
+      "No change to password, email or phone number",
+      "Same home location as before",
+      "Payment to a long-standing payee",
+      "Amount and timing match the customer's routine"
+    ],
+    "howToRespond": "Approve. Look for a new device combined with other changes before treating it as a takeover."
   }
 ]

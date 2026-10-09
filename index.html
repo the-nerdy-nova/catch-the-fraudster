@@ -21,48 +21,100 @@
     <!-- Shown when something goes wrong (e.g. the page was opened by double-click) -->
     <div id="notice" class="notice" hidden></div>
 
-    <!-- The transaction the player is deciding on -->
-    <section id="case-card" class="card" hidden>
-      <div class="card-head">
-        <span class="label">Transaction under review</span>
-        <span id="case-id" class="case-id"></span>
-      </div>
-      <div class="card-amount">
-        <span id="case-amount" class="amount"></span>
-        <span id="case-method" class="method"></span>
-      </div>
-      <dl id="case-fields" class="fields"></dl>
-
-      <!-- Extra clues, shown after pressing Investigate -->
-      <div id="clue-panel" class="clue-panel" hidden>
-        <p id="clue-hint" class="clue-hint"></p>
-        <div id="clue-list" class="clue-list"></div>
-      </div>
-
+    <!-- Screen 1: before the shift -->
+    <section id="screen-start" class="card" hidden>
+      <span class="label">Your shift is about to begin</span>
+      <h1 class="start-title">Catch the Fraudster</h1>
+      <p>You are a fraud investigator at NovaPay. Transactions arrive in your queue and you decide what happens to each one.</p>
+      <ul class="rules">
+        <li><strong>Approve</strong> genuine customers. <strong>Decline</strong> fraud.</li>
+        <li><strong>Investigate</strong> to reveal clues. Each clue costs time.</li>
+        <li>Don't leave customers waiting. They get angry.</li>
+        <li>The clock pauses while you read each "Case closed" explanation.</li>
+      </ul>
       <div class="actions">
-        <button id="btn-approve" class="btn btn-approve" type="button">Approve</button>
-        <button id="btn-investigate" class="btn btn-investigate" type="button"
-                aria-expanded="false" aria-controls="clue-panel">Investigate</button>
-        <button id="btn-decline" class="btn btn-decline" type="button">Decline</button>
+        <button id="btn-start" class="btn btn-primary" type="button">Start shift</button>
       </div>
     </section>
 
-    <!-- The "Case closed" explanation shown after a decision -->
-    <section id="reveal" class="card reveal" hidden>
-      <div class="card-head">
-        <span class="label">Case closed</span>
-        <span id="reveal-truth" class="badge"></span>
+    <!-- Screen 2: the shift -->
+    <section id="screen-shift" hidden>
+      <div class="hud">
+        <div class="hud-item">
+          <span class="label">Time left</span>
+          <span id="hud-time" class="hud-value">0:00</span>
+        </div>
+        <div class="hud-item">
+          <span class="label">Score</span>
+          <span id="hud-score" class="hud-value">0</span>
+        </div>
+        <div class="hud-item">
+          <span class="label">Cases</span>
+          <span id="hud-cases" class="hud-value">0 / 0</span>
+        </div>
       </div>
-      <h2 id="reveal-verdict" class="verdict"></h2>
-      <p id="reveal-outcome" class="outcome"></p>
-      <h3 id="reveal-pattern" class="pattern-name"></h3>
-      <p id="reveal-explanation"></p>
-      <h4 class="signs-title">Clues that gave it away</h4>
-      <ul id="reveal-giveaways" class="giveaways"></ul>
-      <h4 class="signs-title">Warning signs to remember</h4>
-      <ul id="reveal-signs" class="signs"></ul>
+
+      <div class="queue">
+        <span class="label">Waiting</span>
+        <div id="queue-list" class="queue-list"></div>
+      </div>
+
+      <!-- The transaction the player is deciding on -->
+      <section id="case-card" class="card">
+        <div class="card-head">
+          <span class="label">Transaction under review</span>
+          <span id="case-angry" class="badge is-fraud" hidden>Customer is angry</span>
+          <span id="case-id" class="case-id"></span>
+        </div>
+        <div class="card-amount">
+          <span id="case-amount" class="amount"></span>
+          <span id="case-method" class="method"></span>
+        </div>
+        <dl id="case-fields" class="fields"></dl>
+
+        <!-- Extra clues, shown after pressing Investigate -->
+        <div id="clue-panel" class="clue-panel" hidden>
+          <p id="clue-hint" class="clue-hint"></p>
+          <div id="clue-list" class="clue-list"></div>
+        </div>
+
+        <div class="actions">
+          <button id="btn-approve" class="btn btn-approve" type="button">Approve</button>
+          <button id="btn-investigate" class="btn btn-investigate" type="button"
+                  aria-expanded="false" aria-controls="clue-panel">Investigate</button>
+          <button id="btn-decline" class="btn btn-decline" type="button">Decline</button>
+        </div>
+      </section>
+
+      <!-- The "Case closed" explanation shown after a decision -->
+      <section id="reveal" class="card reveal" hidden>
+        <div class="card-head">
+          <span class="label">Case closed · clock paused</span>
+          <span id="reveal-truth" class="badge"></span>
+        </div>
+        <h2 id="reveal-verdict" class="verdict"></h2>
+        <p id="reveal-outcome" class="outcome"></p>
+        <p id="reveal-points" class="points"></p>
+        <h3 id="reveal-pattern" class="pattern-name"></h3>
+        <p id="reveal-explanation"></p>
+        <h4 class="signs-title">Clues that gave it away</h4>
+        <ul id="reveal-giveaways" class="giveaways"></ul>
+        <h4 class="signs-title">Warning signs to remember</h4>
+        <ul id="reveal-signs" class="signs"></ul>
+        <div class="actions">
+          <button id="btn-next" class="btn btn-primary" type="button">Next case</button>
+        </div>
+      </section>
+    </section>
+
+    <!-- Screen 3: end-of-shift report card -->
+    <section id="screen-report" class="card" hidden>
+      <span class="label">Shift report</span>
+      <h2 id="report-rank" class="report-rank"></h2>
+      <p id="report-score" class="report-score"></p>
+      <dl id="report-stats" class="stats"></dl>
       <div class="actions">
-        <button id="btn-next" class="btn btn-primary" type="button">Next case</button>
+        <button id="btn-again" class="btn btn-primary" type="button">Play again</button>
       </div>
     </section>
   </main>
