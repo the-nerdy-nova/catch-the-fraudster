@@ -7,8 +7,9 @@ import {
 } from './game.js';
 import {
   showScreen, showNotice, renderMenu, renderHud, renderQueue, renderCase,
-  renderReveal, renderReport, toggleCluePanel,
+  renderReveal, renderReport, toggleCluePanel, flashTimeCost, setShareStatus,
 } from './ui.js';
+import { buildShareText, copyText } from './share.js';
 import { renderEncyclopedia } from './encyclopedia.js';
 import { loadProgress, saveProgress, clearProgress } from './storage.js';
 
@@ -23,6 +24,7 @@ let progress = loadProgress();
 let shift = null;
 let timerId = null;
 let lastTick = 0;
+let shareText = '';
 
 // ---- Menu ----
 
@@ -114,8 +116,23 @@ function recordResult(report) {
 function endShift() {
   clearInterval(timerId);
   const report = buildReport(shift);
-  renderReport(report, recordResult(report));
+  const extras = recordResult(report);
+  shareText = buildShareText(report, extras.levelLabel);
+  renderReport(report, extras);
   showScreen('report');
+}
+
+async function onShare() {
+  const copied = await copyText(shareText);
+  // If copying is blocked, show the text so it can be copied by hand.
+  setShareStatus(copied ? 'Copied. Paste it anywhere to share.' : shareText);
+}
+
+function quitShift() {
+  if (window.confirm('Quit this shift? Your score will not be saved.')) {
+    clearInterval(timerId);
+    showMenu();
+  }
 }
 
 // Called whenever game time has moved: redraw, or finish if time ran out.
@@ -138,6 +155,7 @@ function tick() {
 
 function onOpenClue(key) {
   openClue(shift, key);
+  flashTimeCost();
   afterClockChange();
 }
 
@@ -197,6 +215,8 @@ async function start() {
   on('btn-encyclopedia', showEncyclopedia);
   on('btn-encyclopedia-back', showMenu);
   on('btn-reset', resetProgress);
+  on('btn-share', onShare);
+  on('btn-quit', quitShift);
 
   showMenu();
 }

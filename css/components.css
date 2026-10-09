@@ -581,3 +581,40 @@
 .entry .signs {
   margin: 4px 0 0;
 }
+
+/* Clock flashes when a clue costs time */
+@keyframes time-hit {
+  0% {
+    color: var(--warn);
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.hud-value.is-hit {
+  display: inline-block;
+  transform-origin: left center;
+  animation: time-hit 0.6s ease-out;
+}
+
+/* Share */
+.share-row {
+  margin-bottom: 8px;
+}
+
+.share-status {
+  min-height: 24px;
+  margin-bottom: 12px;
+  color: var(--text-dim);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

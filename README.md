@@ -31,3 +31,24 @@ Then open http://localhost:8000. Press `Ctrl+C` in Terminal to stop the server.
   - `patterns.json`: fraud patterns and genuine look-alikes
   - `levels.json`: pace and unlock threshold for each level
   - `config.json`: points, speed bonus, ranks and clue cost
+
+## Put it online with GitHub Pages
+
+GitHub Pages hosts the files as they are, for free. On a free GitHub account the repository has to be public.
+
+1. Create an empty repository on GitHub, for example `catch-the-fraudster`.
+2. Connect this folder to it and upload the code (replace `YOUR-USERNAME`):
+
+   ```
+   git remote add origin https://github.com/YOUR-USERNAME/catch-the-fraudster.git
+   git push -u origin main
+   ```
+
+3. On GitHub, open the repository's **Settings**, then **Pages**. Under "Build and deployment", choose **Deploy from a branch**, pick the `main` branch and the `/ (root)` folder, and save.
+4. After a minute or two the game is live at `https://YOUR-USERNAME.github.io/catch-the-fraudster/`.
+
+To publish a later change, commit it and run `git push`.
+
+## Changing the game
+
+No code is needed for most changes: edit the files in `data/`. Open the browser console after a change; the game prints a warning there for any case that is missing a field or points at a pattern that does not exist.

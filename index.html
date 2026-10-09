@@ -4,8 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Catch the Fraudster</title>
+  <meta name="description" content="A browser game where you play a fraud investigator. Approve, decline or investigate each transaction and learn the warning signs of real fraud.">
+  <meta name="theme-color" content="#0b0f17">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%95%B5%EF%B8%8F%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
   <header class="topbar">
@@ -108,6 +112,8 @@
           <button id="btn-next" class="btn btn-primary" type="button">Next case</button>
         </div>
       </section>
+
+      <button id="btn-quit" class="link-button" type="button">Quit shift</button>
     </section>
 
     <!-- Screen 3: end-of-shift report card -->
@@ -118,6 +124,10 @@
       <p id="report-best" class="report-best" hidden>New best score for this level</p>
       <dl id="report-stats" class="stats"></dl>
       <p id="report-message" class="report-message" hidden></p>
+      <div class="actions share-row">
+        <button id="btn-share" class="btn btn-investigate" type="button">Copy my score</button>
+      </div>
+      <p id="share-status" class="share-status" role="status"></p>
       <div class="actions">
         <button id="btn-again" class="btn btn-primary" type="button">Play again</button>
         <button id="btn-menu" class="btn btn-investigate" type="button">Menu</button>

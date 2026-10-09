@@ -52,6 +52,19 @@ export function renderHud({ timeLeft, score, done, total, currentAngry }) {
   el('case-angry').hidden = !currentAngry;
 }
 
+// Briefly highlights the clock when a clue has cost time.
+export function flashTimeCost() {
+  const time = el('hud-time');
+  time.classList.remove('is-hit');
+  // Reading a layout value makes the browser restart the animation.
+  void time.offsetWidth;
+  time.classList.add('is-hit');
+}
+
+export function setShareStatus(message) {
+  el('share-status').textContent = message;
+}
+
 // Remembers what the queue looked like so it is only redrawn when it changes.
 let lastQueueKey = null;
 
@@ -307,6 +320,7 @@ export function renderMenu(levels, encyclopediaLabel, onPlay) {
 // extras: { levelLabel, isNewBest, message }
 export function renderReport(report, extras) {
   el('report-level').textContent = `Shift report · ${extras.levelLabel}`;
+  setShareStatus('');
   el('report-best').hidden = !extras.isNewBest;
   const message = el('report-message');
   message.textContent = extras.message;

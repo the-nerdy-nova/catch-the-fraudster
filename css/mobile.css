@@ -1,0 +1,91 @@
+/* Small screens. Loaded last so these rules win over the others. */
+
+@media (max-width: 600px) {
+  #app {
+    padding: 12px 12px 24px;
+  }
+
+  .topbar {
+    padding: 10px 12px;
+  }
+
+  .topbar-title {
+    display: none;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .card-head {
+    flex-wrap: wrap;
+  }
+
+  .amount {
+    font-size: 28px;
+  }
+
+  .start-title,
+  .report-rank {
+    font-size: 26px;
+  }
+
+  /* Keep the clock in view while scrolling through clues. */
+  .hud {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    margin-bottom: 4px;
+    padding: 8px 0;
+    background: var(--bg);
+  }
+
+  .hud-item {
+    padding: 8px 10px;
+  }
+
+  .hud-item .label {
+    font-size: 11px;
+  }
+
+  .hud-value {
+    font-size: 20px;
+  }
+
+  /* The queue scrolls sideways so it never pushes the card down. */
+  .queue-list {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .queue-chip {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  /* Keep Approve / Investigate / Decline reachable under a long clue list. */
+  #case-card .actions {
+    position: sticky;
+    bottom: 0;
+    margin: 0 -16px -16px;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-radius: 0 0 var(--radius) var(--radius);
+  }
+
+  #case-card .actions .btn {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 380px) {
+  .fields {
+    grid-template-columns: 1fr;
+  }
+
+  .stat dd {
+    font-size: 18px;
+  }
+}
