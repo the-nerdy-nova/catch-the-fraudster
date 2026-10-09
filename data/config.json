@@ -1,7 +1,7 @@
 {
   "shiftSeconds": 180,
-  "casesPerShift": 16,
-  "arrivalSeconds": 10,
+  "casesPerShift": 12,
+  "arrivalSeconds": 14,
   "patienceSeconds": 45,
   "clueCostSeconds": 10,
   "points": {

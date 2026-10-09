@@ -238,9 +238,12 @@ export function renderReveal(currentCase, result, pattern, openedClues, isLast) 
 
   renderGiveaways(currentCase, openedClues);
 
+  el('reveal-signs-title').textContent = isFraud
+    ? 'Warning signs to remember'
+    : 'Signs this was genuine';
   const signs = el('reveal-signs');
   signs.replaceChildren();
-  for (const sign of pattern?.warningSigns ?? []) {
+  for (const sign of pattern?.signs ?? []) {
     const li = document.createElement('li');
     li.textContent = sign;
     signs.append(li);

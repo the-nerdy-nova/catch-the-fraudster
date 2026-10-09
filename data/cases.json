@@ -1,103 +1,7 @@
 [
   {
-    "id": "ato-001",
-    "level": 1,
-    "truth": "fraud",
-    "patternId": "account-takeover",
-    "card": {
-      "customer": "Mira Okafor",
-      "amount": 2400,
-      "currency": "GBP",
-      "method": "Bank withdrawal",
-      "destination": "New payee (added today)",
-      "country": "United Kingdom",
-      "time": "03:12",
-      "accountAge": "4 years"
-    },
-    "clues": {
-      "device": "New device, first seen 20 minutes ago. IP address is in a different country from the customer's usual logins.",
-      "velocity": "3 withdrawals in the last hour. This customer normally makes 1 a month.",
-      "history": "Password and phone number were both changed 25 minutes ago.",
-      "contact": "No reply to chat or to the registered email.",
-      "blockchain": null
-    },
-    "explanation": "Someone other than Mira got into her account. They changed the password and phone number to lock her out, added a brand-new payee and tried to empty the balance in the middle of the night.",
-    "giveaways": [
-      "device",
-      "history"
-    ]
-  },
-  {
-    "id": "gen-001",
-    "level": 1,
-    "truth": "genuine",
-    "patternId": "genuine-traveller",
-    "card": {
-      "customer": "Tomas Lindqvist",
-      "amount": 186.5,
-      "currency": "EUR",
-      "method": "Card payment",
-      "destination": "Hotel Mirabela, Lisbon",
-      "country": "Portugal",
-      "time": "21:40",
-      "accountAge": "6 years"
-    },
-    "clues": {
-      "device": "Usual phone, used on this account for 2 years. IP address is in Portugal.",
-      "velocity": "4 card payments today, all in Lisbon: a cafe, a taxi, a museum and this hotel.",
-      "history": "No recent changes to password, email or phone. A flight was bought with this card 3 weeks ago.",
-      "contact": "\"Yes that's me, I'm on holiday in Lisbon until Sunday.\"",
-      "blockchain": null
-    },
-    "explanation": "Tomas is on holiday. The country is unusual for him, but everything else is consistent: his own phone, normal holiday spending and a flight he booked weeks ago.",
-    "giveaways": [
-      "device",
-      "history"
-    ]
-  },
-  {
-    "id": "cry-001",
-    "level": 1,
-    "truth": "fraud",
-    "patternId": "crypto-cash-out",
-    "card": {
-      "customer": "Dario Venn",
-      "amount": 3150,
-      "currency": "GBP",
-      "method": "Crypto withdrawal (stablecoin)",
-      "destination": "External wallet 0x7c…e41a",
-      "country": "United Kingdom",
-      "time": "02:47",
-      "accountAge": "2 days"
-    },
-    "clues": {
-      "device": "Device first seen 2 days ago. Connection is through a VPN.",
-      "velocity": "3 card deposits in the last 40 minutes from 3 different cards, then this withdrawal for almost the full balance.",
-      "history": "Account opened 2 days ago. No trading or spending, only deposits.",
-      "contact": "\"Please release my funds now. I need it urgent.\"",
-      "blockchain": "Destination wallet was created 35 minutes ago and has no history. It has sent funds on to a wallet flagged as high risk."
-    },
-    "explanation": "This account exists only to turn card deposits into crypto and move it out of reach. Several different cards fund a brand-new account, and the money leaves straight away to a wallet created minutes earlier.",
-    "giveaways": [
-      "velocity",
-      "blockchain"
-    ]
-  },
-  {
-    "id": "ct-001",
-    "level": 1,
-    "truth": "fraud",
-    "patternId": "card-testing",
-    "card": {
-      "customer": "Priya Ramanathan",
-      "amount": 1.0,
-      "currency": "USD",
-      "method": "Card payment (online)",
-      "destination": "QuickGive Online",
-      "country": "United States",
-      "time": "04:05",
-      "accountAge": "3 years"
-    },
+    "id": "ct-001", "level": 1, "truth": "fraud", "patternId": "card-testing",
+    "card": { "customer": "Priya Ramanathan", "amount": 1.00, "currency": "USD", "method": "Card payment (online)", "destination": "QuickGive Online", "country": "United States", "time": "04:05", "accountAge": "3 years" },
     "clues": {
       "device": "Card details were typed into a website. The payment did not come from the customer's phone or app.",
       "velocity": "6 payments between $0.50 and $2.00 in the last 10 minutes at 4 different online merchants. 3 were refused for a wrong security code.",
@@ -106,26 +10,141 @@
       "blockchain": null
     },
     "explanation": "Someone has Priya's card number and is checking whether it works. The amounts are tiny so they go unnoticed. If these go through, a much larger purchase usually follows.",
-    "giveaways": [
-      "velocity",
-      "contact"
-    ]
+    "giveaways": ["velocity", "contact"]
   },
   {
-    "id": "gen-002",
-    "level": 1,
-    "truth": "genuine",
-    "patternId": "genuine-large-purchase",
-    "card": {
-      "customer": "Helena Brandt",
-      "amount": 4890,
-      "currency": "GBP",
-      "method": "Card payment",
-      "destination": "Oakline Kitchens Ltd",
-      "country": "United Kingdom",
-      "time": "11:20",
-      "accountAge": "9 years"
+    "id": "ct-002", "level": 1, "truth": "fraud", "patternId": "card-testing",
+    "card": { "customer": "Owen Gallagher", "amount": 0.99, "currency": "GBP", "method": "Card payment (online)", "destination": "TuneDrop Digital", "country": "Singapore", "time": "03:31", "accountAge": "7 years" },
+    "clues": {
+      "device": "Card details were typed into a website. No link to the customer's app or usual browser.",
+      "velocity": "9 attempts in 6 minutes at this merchant, each under £2. 5 were refused.",
+      "history": "The card was last used yesterday at a supermarket near the customer's home. No previous payments in this country.",
+      "contact": "No reply. It is the middle of the night for the customer.",
+      "blockchain": null
     },
+    "explanation": "A burst of tiny online payments with several refusals, in a country Owen has never paid in, while he is asleep at home. Someone is testing a stolen card number.",
+    "giveaways": ["velocity", "history"]
+  },
+  {
+    "id": "ato-001", "level": 1, "truth": "fraud", "patternId": "account-takeover",
+    "card": { "customer": "Mira Okafor", "amount": 2400, "currency": "GBP", "method": "Bank withdrawal", "destination": "New payee (added today)", "country": "United Kingdom", "time": "03:12", "accountAge": "4 years" },
+    "clues": {
+      "device": "New device, first seen 20 minutes ago. IP address is in a different country from the customer's usual logins.",
+      "velocity": "3 withdrawals in the last hour. This customer normally makes 1 a month.",
+      "history": "Password and phone number were both changed 25 minutes ago.",
+      "contact": "No reply to chat or to the registered email.",
+      "blockchain": null
+    },
+    "explanation": "Someone other than Mira got into her account. They changed the password and phone number to lock her out, added a brand-new payee and tried to empty the balance in the middle of the night.",
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "ato-002", "level": 1, "truth": "fraud", "patternId": "account-takeover",
+    "card": { "customer": "Jonas Weber", "amount": 1850, "currency": "EUR", "method": "Bank transfer", "destination": "New payee (added 10 minutes ago)", "country": "Germany", "time": "01:55", "accountAge": "6 years" },
+    "clues": {
+      "device": "New laptop never seen before. The login came from a country the customer has never logged in from.",
+      "velocity": "2 attempts for €5,000 were stopped by the transfer limit. This smaller one followed 3 minutes later.",
+      "history": "Email address was changed 30 minutes ago. Payment notifications were switched off straight afterwards.",
+      "contact": "A reply from the new email address: \"Yes it is me, send it.\" The phone number on file is not being answered.",
+      "blockchain": null
+    },
+    "explanation": "The intruder changed Jonas's email and turned off notifications so he would not see what was happening, then kept lowering the amount until it slipped under the limit. The 'customer' replying is the intruder.",
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "cry-001", "level": 1, "truth": "fraud", "patternId": "crypto-cash-out",
+    "card": { "customer": "Dario Venn", "amount": 3150, "currency": "GBP", "method": "Crypto withdrawal (stablecoin)", "destination": "External wallet 0x7c…e41a", "country": "United Kingdom", "time": "02:47", "accountAge": "2 days" },
+    "clues": {
+      "device": "Device first seen 2 days ago. Connection is through a VPN.",
+      "velocity": "3 card deposits in the last 40 minutes from 3 different cards, then this withdrawal for almost the full balance.",
+      "history": "Account opened 2 days ago. No trading or spending, only deposits.",
+      "contact": "\"Please release my funds now. I need it urgent.\"",
+      "blockchain": "Destination wallet was created 35 minutes ago and has no history. It has sent funds on to a wallet flagged as high risk."
+    },
+    "explanation": "This account exists only to turn card deposits into crypto and move it out of reach. Several different cards fund a brand-new account, and the money leaves straight away to a wallet created minutes earlier.",
+    "giveaways": ["velocity", "blockchain"]
+  },
+  {
+    "id": "mule-001", "level": 1, "truth": "fraud", "patternId": "money-mule",
+    "card": { "customer": "Callum Reyes", "amount": 2900, "currency": "GBP", "method": "Bank transfer", "destination": "New payee: overseas account", "country": "United Kingdom", "time": "14:10", "accountAge": "8 months" },
+    "clues": {
+      "device": "Customer's usual phone.",
+      "velocity": "4 payments arrived in the last 2 hours from 4 people the customer has never dealt with. This transfer sends out almost all of it.",
+      "history": "Student account. The balance is usually under £200. No incoming payments like these before.",
+      "contact": "\"It's for my new job. I receive payments and pass them on, and I keep 10%.\"",
+      "blockchain": null
+    },
+    "explanation": "Callum has been recruited as a money mule. The 'job' is moving other people's stolen money through his account so it is harder to trace. His own device and login are genuine, which is exactly why criminals use mules.",
+    "giveaways": ["velocity", "contact"]
+  },
+  {
+    "id": "promo-001", "level": 1, "truth": "fraud", "patternId": "promo-abuse",
+    "card": { "customer": "Lexi Hart", "amount": 250, "currency": "GBP", "method": "Referral bonus withdrawal", "destination": "Own bank account", "country": "United Kingdom", "time": "16:40", "accountAge": "5 days" },
+    "clues": {
+      "device": "The same phone has been used to open 11 NovaPay accounts this week.",
+      "velocity": "10 referral bonuses earned in 3 days. Each referred account made the minimum qualifying payment and nothing else.",
+      "history": "The referred accounts share one home address and have near-identical email addresses.",
+      "contact": "\"They are all my friends. Pay me my bonus.\"",
+      "blockchain": null
+    },
+    "explanation": "The ten 'friends' are one person. Every referred account was opened on the same phone at the same address, did the bare minimum to trigger the bonus and was never used again.",
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "sim-001", "level": 1, "truth": "fraud", "patternId": "sim-swap",
+    "card": { "customer": "Anjali Deshmukh", "amount": 3600, "currency": "GBP", "method": "Bank transfer", "destination": "New payee (added today)", "country": "United Kingdom", "time": "22:15", "accountAge": "8 years" },
+    "clues": {
+      "device": "New phone, first seen 40 minutes ago.",
+      "velocity": "Second large transfer attempt in 15 minutes.",
+      "history": "The mobile network reports that the SIM for this number was replaced 1 hour ago. The password was then reset using a text message code.",
+      "contact": "Texts go unanswered. An email reply from the customer: \"My phone lost all signal this evening and I can't make calls. I have not sent any money.\"",
+      "blockchain": null
+    },
+    "explanation": "A criminal took over Anjali's mobile number, so the security codes went to them. They used a code to reset her password and set up a new phone. Her real phone losing signal is the tell-tale sign.",
+    "giveaways": ["history", "contact"]
+  },
+  {
+    "id": "ff-001", "level": 1, "truth": "fraud", "patternId": "friendly-fraud",
+    "card": { "customer": "Marcus Bell", "amount": 480, "currency": "GBP", "method": "Refund claim: \"I never made this purchase\"", "destination": "Brightwave Electronics", "country": "United Kingdom", "time": "10:30", "accountAge": "3 years" },
+    "clues": {
+      "device": "The purchase was made on the customer's usual phone, on home internet, and approved with their fingerprint.",
+      "velocity": "This is the customer's 4th \"not me\" claim in 6 months. All were for goods that were delivered.",
+      "history": "The order was delivered to the customer's home address and signed for. The customer messaged the merchant twice about the delivery date.",
+      "contact": "\"I don't recognise it at all. Someone must have hacked me. I want my money back.\"",
+      "blockchain": null
+    },
+    "explanation": "Marcus bought the item himself, chased the delivery and signed for it. Claiming it was fraud is an attempt to keep the goods and get the money back. Approving here means refunding a false claim.",
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "trav-001", "level": 1, "truth": "genuine", "patternId": "genuine-traveller",
+    "card": { "customer": "Tomas Lindqvist", "amount": 186.5, "currency": "EUR", "method": "Card payment", "destination": "Hotel Mirabela, Lisbon", "country": "Portugal", "time": "21:40", "accountAge": "6 years" },
+    "clues": {
+      "device": "Usual phone, used on this account for 2 years. IP address is in Portugal.",
+      "velocity": "4 card payments today, all in Lisbon: a cafe, a taxi, a museum and this hotel.",
+      "history": "No recent changes to password, email or phone. A flight was bought with this card 3 weeks ago.",
+      "contact": "\"Yes that's me, I'm on holiday in Lisbon until Sunday.\"",
+      "blockchain": null
+    },
+    "explanation": "Tomas is on holiday. The country is unusual for him, but everything else is consistent: his own phone, normal holiday spending and a flight he booked weeks ago.",
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "trav-002", "level": 1, "truth": "genuine", "patternId": "genuine-traveller",
+    "card": { "customer": "Ngozi Adeyemi", "amount": 64.2, "currency": "USD", "method": "Card payment", "destination": "Harbor Street Diner, Boston", "country": "United States", "time": "19:25", "accountAge": "4 years" },
+    "clues": {
+      "device": "The card was used in person with chip and PIN.",
+      "velocity": "5 payments in 2 days, all in Boston.",
+      "history": "The customer told NovaPay through the app last week that they would be in the US until the 20th.",
+      "contact": "\"Yes, visiting my brother. All fine, thanks!\"",
+      "blockchain": null
+    },
+    "explanation": "Ngozi has her card in her hand and knows her PIN, and she told NovaPay about the trip in advance. A payment abroad made in person is very different from card details typed into a foreign website.",
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "big-001", "level": 1, "truth": "genuine", "patternId": "genuine-large-purchase",
+    "card": { "customer": "Helena Brandt", "amount": 4890, "currency": "GBP", "method": "Card payment", "destination": "Oakline Kitchens Ltd", "country": "United Kingdom", "time": "11:20", "accountAge": "9 years" },
     "clues": {
       "device": "Usual laptop, on the same home internet connection as the last 3 years.",
       "velocity": "Only payment today. A £500 deposit was paid to the same merchant 6 weeks ago.",
@@ -134,26 +153,24 @@
       "blockchain": null
     },
     "explanation": "A large amount on its own is not fraud. Helena paid a deposit to this merchant weeks ago, moved her own savings in to cover the bill and is using her usual laptop at home.",
-    "giveaways": [
-      "velocity",
-      "history"
-    ]
+    "giveaways": ["velocity", "history"]
   },
   {
-    "id": "gen-003",
-    "level": 1,
-    "truth": "genuine",
-    "patternId": "genuine-new-device",
-    "card": {
-      "customer": "Kofi Mensah",
-      "amount": 320,
-      "currency": "GBP",
-      "method": "Bank transfer",
-      "destination": "Ama Mensah (existing payee)",
-      "country": "United Kingdom",
-      "time": "18:05",
-      "accountAge": "5 years"
+    "id": "big-002", "level": 1, "truth": "genuine", "patternId": "genuine-large-purchase",
+    "card": { "customer": "Arjun Patel", "amount": 1299, "currency": "GBP", "method": "Card payment (online)", "destination": "Northgate Computers", "country": "United Kingdom", "time": "13:05", "accountAge": "5 years" },
+    "clues": {
+      "device": "Usual phone and home internet. Payment approved in the app.",
+      "velocity": "1 payment today.",
+      "history": "The customer has bought from this merchant 3 times before. Delivery is to the home address on file.",
+      "contact": "\"Yep, new laptop for work.\"",
+      "blockchain": null
     },
+    "explanation": "Arjun is buying from a shop he has used before, on his own phone, with delivery to his own home. It is more than he usually spends, and that is all.",
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "dev-001", "level": 1, "truth": "genuine", "patternId": "genuine-new-device",
+    "card": { "customer": "Kofi Mensah", "amount": 320, "currency": "GBP", "method": "Bank transfer", "destination": "Ama Mensah (existing payee)", "country": "United Kingdom", "time": "18:05", "accountAge": "5 years" },
     "clues": {
       "device": "New phone, first seen 3 days ago. Same home internet connection as usual.",
       "velocity": "1 transfer today.",
@@ -162,9 +179,528 @@
       "blockchain": null
     },
     "explanation": "A new device looks alarming, but nothing else has changed. Kofi's contact details are the same, he is at home and he is paying someone he has paid every month for two years.",
-    "giveaways": [
-      "device",
-      "history"
-    ]
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "dev-002", "level": 1, "truth": "genuine", "patternId": "genuine-new-device",
+    "card": { "customer": "Sofia Marchetti", "amount": 45, "currency": "GBP", "method": "Card payment (online)", "destination": "Greenbasket Groceries", "country": "United Kingdom", "time": "09:15", "accountAge": "3 years" },
+    "clues": {
+      "device": "New tablet, first seen today. Same home internet connection as usual.",
+      "velocity": "1 payment today, similar in size to the customer's weekly shop.",
+      "history": "Weekly orders from this merchant for over a year. No changes to login or contact details.",
+      "contact": "\"Yes, I'm using my daughter's tablet today.\"",
+      "blockchain": null
+    },
+    "explanation": "The tablet is new to NovaPay, but it is in Sofia's home and is being used for her regular grocery order. A new device with an ordinary, routine payment is rarely a problem.",
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "small-001", "level": 1, "truth": "genuine", "patternId": "genuine-small-payments",
+    "card": { "customer": "Li Wei Chen", "amount": 1.75, "currency": "GBP", "method": "Card payment (contactless)", "destination": "Metrolink Transit", "country": "United Kingdom", "time": "08:10", "accountAge": "2 years" },
+    "clues": {
+      "device": "The card was tapped in person from the customer's phone wallet.",
+      "velocity": "6 small payments today, all with this transport operator, at stations along one route.",
+      "history": "The same pattern every weekday for months.",
+      "contact": "\"That's my commute.\"",
+      "blockchain": null
+    },
+    "explanation": "Lots of small payments can look like card testing, but these are made in person, with one familiar merchant, on a routine that repeats every working day.",
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "cryg-001", "level": 1, "truth": "genuine", "patternId": "genuine-crypto-withdrawal",
+    "card": { "customer": "Ingrid Solberg", "amount": 800, "currency": "EUR", "method": "Crypto withdrawal", "destination": "External wallet 0x3a…9f02 (saved)", "country": "Ireland", "time": "20:30", "accountAge": "3 years" },
+    "clues": {
+      "device": "Usual phone. Two-step login passed.",
+      "velocity": "1 withdrawal this month.",
+      "history": "The customer has bought a small amount of crypto each month for 2 years, funded by their salary.",
+      "contact": "\"Just moving this month's savings to my own wallet.\"",
+      "blockchain": "Destination wallet is 2 years old. This account has sent to it 14 times before. No links to risky wallets."
+    },
+    "explanation": "Ingrid has sent to this same wallet fourteen times over two years. A crypto withdrawal is not suspicious in itself; a long, steady history to an established wallet is about as safe as it gets.",
+    "giveaways": ["history", "blockchain"]
+  },
+  {
+    "id": "pay-001", "level": 1, "truth": "genuine", "patternId": "genuine-new-payee",
+    "card": { "customer": "Eleanor Whitby", "amount": 650, "currency": "GBP", "method": "Bank transfer", "destination": "New payee: R. Dunmore Plumbing", "country": "United Kingdom", "time": "15:20", "accountAge": "12 years" },
+    "clues": {
+      "device": "Usual phone, at home.",
+      "velocity": "1 transfer today.",
+      "history": "The name the customer typed matches the name on the receiving account. It is a business account that has been open for 9 years.",
+      "contact": "\"He fixed our boiler this morning. The invoice is in front of me.\"",
+      "blockchain": null
+    },
+    "explanation": "Eleanor is paying a tradesperson she has just met in person. The account name matches, the business is long-established and she has the invoice. Everyone pays someone new sometimes.",
+    "giveaways": ["history", "contact"]
+  },
+
+  {
+    "id": "ato-003", "level": 2, "truth": "fraud", "patternId": "account-takeover",
+    "card": { "customer": "Beatriz Nunes", "amount": 940, "currency": "GBP", "method": "Card payment (online)", "destination": "Larkspur Gift Cards", "country": "United Kingdom", "time": "23:40", "accountAge": "5 years" },
+    "clues": {
+      "device": "New browser on a computer not seen before. Location is the customer's home city.",
+      "velocity": "3 gift card purchases in 20 minutes, each just under £1,000.",
+      "history": "The login followed 6 failed password attempts. The gift cards are being emailed to an address that is not the customer's.",
+      "contact": "No reply to the app notification.",
+      "blockchain": null
+    },
+    "explanation": "The location looks right, but someone guessed their way into Beatriz's account and is buying gift cards, which are as good as cash, and sending them to their own email address.",
+    "giveaways": ["velocity", "history"]
+  },
+  {
+    "id": "sim-002", "level": 2, "truth": "fraud", "patternId": "sim-swap",
+    "card": { "customer": "Graham Oduya", "amount": 1200, "currency": "GBP", "method": "Bank transfer", "destination": "New payee (added today)", "country": "United Kingdom", "time": "12:20", "accountAge": "10 years" },
+    "clues": {
+      "device": "New phone, first seen today. Location is a different city from usual.",
+      "velocity": "The daily transfer limit was raised 20 minutes ago, confirmed by a text message code.",
+      "history": "The mobile network shows the number moved to a different provider yesterday. The customer has not told NovaPay about a new phone.",
+      "contact": "A call to the number on file is answered by someone who cannot give the customer's memorable word.",
+      "blockchain": null
+    },
+    "explanation": "Graham's number was moved to another provider without his knowledge. Whoever now holds it is receiving his security codes and answering his phone, but cannot answer a question only Graham would know.",
+    "giveaways": ["history", "contact"]
+  },
+  {
+    "id": "mule-002", "level": 2, "truth": "fraud", "patternId": "money-mule",
+    "card": { "customer": "Tilly Marsh", "amount": 1480, "currency": "GBP", "method": "Bank transfer", "destination": "Payee: K. Brandt (added yesterday)", "country": "United Kingdom", "time": "11:05", "accountAge": "3 years" },
+    "clues": {
+      "device": "Customer's usual phone.",
+      "velocity": "£1,500 arrived 12 minutes ago from someone new. This is the 3rd time this week that money has come in and left within the hour.",
+      "history": "The account was barely used for a year until 2 weeks ago. The sender of today's payment has reported it to their own bank as a scam.",
+      "contact": "\"A friend asked me to help move some money because his account is frozen.\"",
+      "blockchain": null
+    },
+    "explanation": "Money from a scam victim is being passed through Tilly's account. Whether or not she understands what she is part of, a quiet account that suddenly turns money around within the hour for 'a friend' is mule activity.",
+    "giveaways": ["velocity", "history"]
+  },
+  {
+    "id": "syn-001", "level": 2, "truth": "fraud", "patternId": "synthetic-identity",
+    "card": { "customer": "Daniel Roark", "amount": 2750, "currency": "GBP", "method": "Pay-later purchase", "destination": "Voltline Electronics", "country": "United Kingdom", "time": "14:50", "accountAge": "5 months" },
+    "clues": {
+      "device": "This device is also linked to 4 other NovaPay accounts in different names.",
+      "velocity": "3 high-value purchases today, taking the credit limit from nearly unused to full.",
+      "history": "The name and date of birth on the application appear together in no earlier record. The address is a mail-forwarding service used by 9 other applicants.",
+      "contact": "The phone number is not in service. Email bounces.",
+      "blockchain": null
+    },
+    "explanation": "'Daniel Roark' is not a real person. The identity was assembled to obtain credit, and now the whole limit is being spent at once with no intention of repaying it.",
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "ff-002", "level": 2, "truth": "fraud", "patternId": "friendly-fraud",
+    "card": { "customer": "Renee Okoro", "amount": 129.99, "currency": "GBP", "method": "Refund claim: \"item never arrived\"", "destination": "Stitch & Thread Clothing", "country": "United Kingdom", "time": "17:00", "accountAge": "4 years" },
+    "clues": {
+      "device": "The order was placed from the customer's usual phone.",
+      "velocity": "6 \"never arrived\" claims in 12 months, across 5 merchants.",
+      "history": "The courier's record shows delivery with a photo at the customer's front door. The customer left a product review two days later.",
+      "contact": "\"Nothing came. I want a refund today or I'll complain.\"",
+      "blockchain": null
+    },
+    "explanation": "Renee received the parcel and even reviewed the product. Six 'never arrived' claims in a year, each against a different merchant, is a pattern rather than bad luck.",
+    "giveaways": ["velocity", "history"]
+  },
+  {
+    "id": "app-001", "level": 2, "truth": "fraud", "patternId": "app-scam",
+    "card": { "customer": "Margaret Ellery", "amount": 8400, "currency": "GBP", "method": "Bank transfer", "destination": "New payee: \"NovaPay Secure Holding\"", "country": "United Kingdom", "time": "15:45", "accountAge": "14 years" },
+    "clues": {
+      "device": "Customer's usual phone, at home. A phone call has been active on the device for 50 minutes.",
+      "velocity": "Savings were moved into this account 10 minutes ago. This transfer would empty it.",
+      "history": "The name typed does not match the name on the receiving account, which is a personal account opened 3 weeks ago.",
+      "contact": "\"Yes, it's me. I've been told to move my money to keep it safe. Please don't delay it, I was told you might ask questions.\"",
+      "blockchain": null
+    },
+    "explanation": "Margaret is the real customer, and she is being scammed. Someone on the phone, posing as NovaPay, has convinced her that her money is in danger and must be moved to a 'safe account'. No genuine payments company ever asks for this.",
+    "giveaways": ["history", "contact"]
+  },
+  {
+    "id": "promo-002", "level": 2, "truth": "fraud", "patternId": "promo-abuse",
+    "card": { "customer": "Viktor Hale", "amount": 50, "currency": "GBP", "method": "Welcome bonus withdrawal", "destination": "Own bank account", "country": "United Kingdom", "time": "13:30", "accountAge": "1 day" },
+    "clues": {
+      "device": "This device has been wiped and set up as new 7 times this month. Each time was followed by a new account.",
+      "velocity": "The bonus was claimed within minutes of sign-up, followed by an immediate withdrawal request.",
+      "history": "The bank account receiving the money has already received welcome bonuses from 6 other NovaPay accounts.",
+      "contact": "\"I just joined. Is there a problem?\"",
+      "blockchain": null
+    },
+    "explanation": "One person is collecting the welcome bonus again and again. The amount is small each time, which is why it works: the same phone and the same bank account sit behind every 'new' customer.",
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "cry-002", "level": 2, "truth": "fraud", "patternId": "crypto-cash-out",
+    "card": { "customer": "Emeka Obi", "amount": 5200, "currency": "GBP", "method": "Crypto withdrawal", "destination": "External wallet bc1q…7k2m (new)", "country": "United Kingdom", "time": "04:20", "accountAge": "3 years" },
+    "clues": {
+      "device": "New device, first seen 1 hour ago, connecting through a VPN.",
+      "velocity": "The customer's whole portfolio was sold in the last 30 minutes. The customer has never sold before.",
+      "history": "Two-step login was switched off 45 minutes ago. The withdrawal address was added immediately afterwards.",
+      "contact": "No reply to email or app message.",
+      "blockchain": "Wallet created today. No previous transactions."
+    },
+    "explanation": "Someone got into Emeka's long-standing account, switched off its protection, sold everything and is sending it to a wallet created the same day. Once crypto leaves, it cannot be recalled.",
+    "giveaways": ["history", "blockchain"]
+  },
+  {
+    "id": "trav-003", "level": 2, "truth": "genuine", "patternId": "genuine-traveller",
+    "card": { "customer": "Mateo Fernandez", "amount": 412, "currency": "EUR", "method": "Card payment", "destination": "Verano Car Hire, Malaga", "country": "Spain", "time": "23:10", "accountAge": "2 years" },
+    "clues": {
+      "device": "The card was used in person with chip and PIN. The customer's phone is also in Spain.",
+      "velocity": "8 payments in 3 days, all in southern Spain.",
+      "history": "First time abroad with this card. A travel insurance policy was bought with it 10 days ago.",
+      "contact": "\"Yes, just picked up the hire car. Late flight.\"",
+      "blockchain": null
+    },
+    "explanation": "A late-night payment abroad for a few hundred euros looks risky, but the card, the PIN and the customer's phone are all in the same place, and he bought travel insurance before he left.",
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "big-003", "level": 2, "truth": "genuine", "patternId": "genuine-large-purchase",
+    "card": { "customer": "Yusuf Demir", "amount": 7200, "currency": "GBP", "method": "Bank transfer", "destination": "New payee: Larkfield Motors Ltd", "country": "United Kingdom", "time": "10:40", "accountAge": "7 years" },
+    "clues": {
+      "device": "Usual phone. No phone call in progress.",
+      "velocity": "1 transfer today. The customer asked for a higher limit 3 days ago and passed the security questions.",
+      "history": "The name typed matches the receiving business account, which has been open 11 years. A £300 holding deposit went to the same account last week.",
+      "contact": "\"Buying a used car and collecting it this afternoon. I've seen it and driven it.\"",
+      "blockchain": null
+    },
+    "explanation": "A big transfer to a new payee is a classic scam shape, so it deserves a look. Here the business is real and established, a deposit was paid last week, and Yusuf has seen the car himself.",
+    "giveaways": ["history", "contact"]
+  },
+  {
+    "id": "dev-003", "level": 2, "truth": "genuine", "patternId": "genuine-new-device",
+    "card": { "customer": "Hannah Kowalczyk", "amount": 1100, "currency": "GBP", "method": "Bank transfer", "destination": "Existing payee: landlord", "country": "United Kingdom", "time": "08:30", "accountAge": "4 years" },
+    "clues": {
+      "device": "New phone, first seen yesterday. It was set up with a face check that matched the photo ID on file.",
+      "velocity": "1 transfer today.",
+      "history": "Password was reset yesterday during set-up. This payee receives the same amount on the 1st of every month.",
+      "contact": "\"Dropped my old phone in the sea on holiday! Just paying the rent.\"",
+      "blockchain": null
+    },
+    "explanation": "A new phone plus a password reset looks like a takeover. The difference is how the phone was set up, with a face match rather than a text code, and where the money is going: the same landlord, the same amount, the same day as always.",
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "pay-002", "level": 2, "truth": "genuine", "patternId": "genuine-new-payee",
+    "card": { "customer": "Oluwaseun Bakare", "amount": 2000, "currency": "GBP", "method": "Bank transfer", "destination": "New payee: Chidi Bakare", "country": "United Kingdom", "time": "19:00", "accountAge": "6 years" },
+    "clues": {
+      "device": "Usual phone. No phone call in progress.",
+      "velocity": "1 transfer today. No recent large movements.",
+      "history": "The name typed matches the receiving account, which has been open 8 years.",
+      "contact": "\"It's my brother. I'm lending him money for a car repair. I rang him myself to get the details.\"",
+      "blockchain": null
+    },
+    "explanation": "Oluwaseun contacted his brother himself to get the account details, the name matches and nobody is pushing him. That is the opposite of a scam, where someone else supplies the details and the urgency.",
+    "giveaways": ["history", "contact"]
+  },
+  {
+    "id": "pass-001", "level": 2, "truth": "genuine", "patternId": "genuine-pass-through",
+    "card": { "customer": "Freya Lindholm", "amount": 1600, "currency": "GBP", "method": "Card payment (online)", "destination": "Snowline Chalets", "country": "United Kingdom", "time": "20:15", "accountAge": "5 years" },
+    "clues": {
+      "device": "Usual phone and home internet.",
+      "velocity": "4 payments of £400 arrived today from 4 different people. This payment spends all of it.",
+      "history": "The 4 senders are saved contacts the customer has swapped small payments with for years. The payment references say \"ski trip\".",
+      "contact": "\"I'm booking the chalet for the group. Everyone's sent me their share.\"",
+      "blockchain": null
+    },
+    "explanation": "Money in from several people and straight out again looks like a mule account. Here the senders are long-standing friends, the references explain it and the money goes to a holiday company.",
+    "giveaways": ["history", "contact"]
+  },
+  {
+    "id": "new-001", "level": 2, "truth": "genuine", "patternId": "genuine-new-customer",
+    "card": { "customer": "Amara Diallo", "amount": 540, "currency": "GBP", "method": "Card payment (online)", "destination": "Dormhaus Student Living", "country": "United Kingdom", "time": "12:10", "accountAge": "3 weeks" },
+    "clues": {
+      "device": "One phone, used only for this account.",
+      "velocity": "2 payments this week.",
+      "history": "Identity was confirmed with a passport and a live face check. A student loan payment arrived from the official lender last week.",
+      "contact": "\"That's my first month's rent for halls.\"",
+      "blockchain": null
+    },
+    "explanation": "A three-week-old account making a large payment can look like a fake identity. Amara has a verified passport, her own phone and income from a recognisable source. She is simply new.",
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "disp-001", "level": 2, "truth": "genuine", "patternId": "genuine-dispute",
+    "card": { "customer": "Gareth Pym", "amount": 312, "currency": "GBP", "method": "Refund claim: \"I never made this purchase\"", "destination": "ZipTix Events", "country": "United Kingdom", "time": "09:00", "accountAge": "9 years" },
+    "clues": {
+      "device": "The purchase came from a device and location never linked to the customer. At that moment the customer's own phone was active at home.",
+      "velocity": "First claim in 9 years.",
+      "history": "The customer froze the card in the app 4 minutes after the payment alert.",
+      "contact": "\"I got the notification and didn't recognise it, so I froze my card straight away.\"",
+      "blockchain": null
+    },
+    "explanation": "This claim is true. The purchase came from somewhere Gareth has never been while his own phone was at home, and he reacted within minutes. Approving here means refunding a real victim.",
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "ref-001", "level": 2, "truth": "genuine", "patternId": "genuine-referrals",
+    "card": { "customer": "Chloe Abernathy", "amount": 75, "currency": "GBP", "method": "Referral bonus withdrawal", "destination": "Own bank account", "country": "United Kingdom", "time": "18:20", "accountAge": "2 years" },
+    "clues": {
+      "device": "One phone. It is not shared with any other account.",
+      "velocity": "3 referral bonuses in 2 months.",
+      "history": "The 3 referred customers live at different addresses, use their own devices and are using their accounts for everyday spending.",
+      "contact": "\"I got my sister and two people from work to sign up.\"",
+      "blockchain": null
+    },
+    "explanation": "This is the referral scheme working as intended: three real people with their own phones, homes and spending.",
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "cryg-002", "level": 2, "truth": "genuine", "patternId": "genuine-crypto-withdrawal",
+    "card": { "customer": "Tobias Engel", "amount": 3000, "currency": "EUR", "method": "Crypto withdrawal", "destination": "External wallet bc1q…w8d4 (new)", "country": "Germany", "time": "21:00", "accountAge": "4 years" },
+    "clues": {
+      "device": "Usual phone. Two-step login passed.",
+      "velocity": "1 withdrawal today. A small test withdrawal of €20 went to the same wallet 2 days ago.",
+      "history": "Regular buyer for 4 years. No changes to security settings.",
+      "contact": "\"I bought a hardware wallet. Sent a test first, now moving the rest.\"",
+      "blockchain": "Wallet is 2 days old. Its only activity is the €20 test from this account. No links to risky wallets."
+    },
+    "explanation": "A fresh wallet is a warning sign, but not proof. Tobias used his usual phone, changed no security settings and sent a small test first, which is what careful owners do with a new wallet of their own.",
+    "giveaways": ["velocity", "history"]
+  },
+  {
+    "id": "small-002", "level": 2, "truth": "genuine", "patternId": "genuine-small-payments",
+    "card": { "customer": "Rhys Morgan", "amount": 0.99, "currency": "GBP", "method": "Card payment (online)", "destination": "PixelPort Games", "country": "United Kingdom", "time": "22:30", "accountAge": "6 years" },
+    "clues": {
+      "device": "Usual phone. Each payment was approved in the app.",
+      "velocity": "7 purchases of £0.99 to £4.99 in the last hour, all with this one merchant. None refused.",
+      "history": "The customer has bought from this merchant most weekends for 2 years.",
+      "contact": "\"Ha, yes. In-game purchases. Don't tell my wife.\"",
+      "blockchain": null
+    },
+    "explanation": "Seven tiny online payments in an hour is the shape of card testing. The difference: one merchant Rhys has used for years, every payment approved on his own phone and no refused attempts.",
+    "giveaways": ["device", "history"]
+  },
+
+  {
+    "id": "app-002", "level": 3, "truth": "fraud", "patternId": "app-scam",
+    "card": { "customer": "Derek Sandoval", "amount": 12000, "currency": "GBP", "method": "Crypto withdrawal", "destination": "External wallet 0x91…c3b7", "country": "United Kingdom", "time": "11:30", "accountAge": "9 years" },
+    "clues": {
+      "device": "Usual laptop, at home. A screen-sharing app is running.",
+      "velocity": "Third withdrawal to this wallet in 2 weeks, each larger than the last: £500, £3,000 and now £12,000.",
+      "history": "The customer never held crypto before this month. A £10,000 personal loan arrived yesterday.",
+      "contact": "\"It's my trading account. My account manager is helping me. I've already made 40%, so please just process it.\"",
+      "blockchain": "The wallet receives deposits from hundreds of people and forwards everything within minutes to wallets flagged for investment scams."
+    },
+    "explanation": "Derek believes he is investing. The 'account manager' watching his screen is a scammer, the 40% profit exists only on a fake website, and he has now borrowed money to send more. He is a genuine customer and this is still fraud.",
+    "giveaways": ["device", "blockchain"]
+  },
+  {
+    "id": "app-003", "level": 3, "truth": "fraud", "patternId": "app-scam",
+    "card": { "customer": "Patricia Lowe", "amount": 2500, "currency": "GBP", "method": "Bank transfer", "destination": "Payee: M. Castellane (added last month)", "country": "United Kingdom", "time": "20:50", "accountAge": "11 years" },
+    "clues": {
+      "device": "Usual tablet, at home.",
+      "velocity": "6th payment to this payee in 5 weeks. The amounts are rising.",
+      "history": "The receiving account is a personal account that sends the money straight on overseas. The customer cashed in a savings bond early last week.",
+      "contact": "\"He's my partner. He's an engineer working overseas and needs it for hospital fees until he's paid. We haven't met in person yet, but we talk every day.\"",
+      "blockchain": null
+    },
+    "explanation": "This is a romance scam. Nothing about the device or login is wrong, because Patricia is making the payments herself. The signs are in the story: a partner she has never met, an emergency abroad and requests that keep growing.",
+    "giveaways": ["history", "contact"]
+  },
+  {
+    "id": "app-004", "level": 3, "truth": "fraud", "patternId": "app-scam",
+    "card": { "customer": "Simone Achterberg", "amount": 18650, "currency": "GBP", "method": "Bank transfer (business account)", "destination": "Existing supplier: Halden Roofing", "country": "United Kingdom", "time": "09:40", "accountAge": "6 years" },
+    "clues": {
+      "device": "Usual office computer.",
+      "velocity": "Part of the normal monthly payment run. The amount is typical for this supplier.",
+      "history": "The supplier's bank details were edited this morning. The new account is at a different bank and the name on it does not match the supplier.",
+      "contact": "\"They emailed to say they'd changed banks. The email looked just like their usual ones. I haven't phoned them.\"",
+      "blockchain": null
+    },
+    "explanation": "A criminal posing as the supplier emailed new bank details. The payee, amount and timing all look routine; the only thing that changed is where the money lands. A phone call to the supplier's known number would have caught it.",
+    "giveaways": ["history", "contact"]
+  },
+  {
+    "id": "ato-004", "level": 3, "truth": "fraud", "patternId": "account-takeover",
+    "card": { "customer": "Nikolai Brandvold", "amount": 990, "currency": "GBP", "method": "Bank transfer", "destination": "New payee (added today)", "country": "United Kingdom", "time": "13:15", "accountAge": "8 years" },
+    "clues": {
+      "device": "Customer's usual laptop and home internet. A remote-access tool connected 25 minutes ago.",
+      "velocity": "4 transfers of £990 in 20 minutes to 4 new payees. Each sits just under the £1,000 extra-check limit.",
+      "history": "The customer has never paid more than 1 new payee in a month.",
+      "contact": "\"I'm on the phone with tech support fixing my internet. They said to ignore any messages from the bank.\"",
+      "blockchain": null
+    },
+    "explanation": "The device and location are Nikolai's, but he is not the one making the payments. A fake 'tech support' caller has remote control of his laptop and is sending transfers sized to avoid extra checks.",
+    "giveaways": ["device", "velocity"]
+  },
+  {
+    "id": "sim-003", "level": 3, "truth": "fraud", "patternId": "sim-swap",
+    "card": { "customer": "Leila Haddad", "amount": 750, "currency": "GBP", "method": "Card payment (phone wallet)", "destination": "Montclair Watches", "country": "United Kingdom", "time": "16:05", "accountAge": "6 years" },
+    "clues": {
+      "device": "The card was added to a new phone's wallet today, approved by a text message code.",
+      "velocity": "First luxury purchase on this card. 2 more are pending at other jewellers.",
+      "history": "The mobile network shows a SIM change 3 hours ago. The customer's usual phone has not opened the app since.",
+      "contact": "Texts show as delivered but get no reply. An email reply from the customer: \"I'm at work and my phone says 'no service'. What purchase?\"",
+      "blockchain": null
+    },
+    "explanation": "The amount is modest and the payment was made in a shop, so it looks ordinary. But Leila's number was taken over three hours ago and used to load her card onto a stranger's phone.",
+    "giveaways": ["history", "contact"]
+  },
+  {
+    "id": "mule-003", "level": 3, "truth": "fraud", "patternId": "money-mule",
+    "card": { "customer": "Bartek Zielinski", "amount": 4750, "currency": "GBP", "method": "Bank transfer", "destination": "Payee: Orbis Trade Supplies", "country": "United Kingdom", "time": "15:30", "accountAge": "2 years" },
+    "clues": {
+      "device": "Customer's usual phone.",
+      "velocity": "£4,800 arrived this morning with the reference \"invoice\". Similar in-and-out pairs happened on 3 of the last 4 Fridays.",
+      "history": "Personal account. The customer has a salaried job in retail and no registered business. About £50 stays behind each time.",
+      "contact": "\"I do some freelance admin for an overseas company. They pay their clients through me because their bank is slow.\"",
+      "blockchain": null
+    },
+    "explanation": "The story sounds like a side job, and the regular rhythm looks like business. But no real company pays its clients through an employee's personal account. Bartek is being paid £50 a time to move criminal money.",
+    "giveaways": ["velocity", "contact"]
+  },
+  {
+    "id": "syn-002", "level": 3, "truth": "fraud", "patternId": "synthetic-identity",
+    "card": { "customer": "Corinne Vasseur", "amount": 4300, "currency": "GBP", "method": "Pay-later purchase", "destination": "Aurum Jewellery Online", "country": "United Kingdom", "time": "12:00", "accountAge": "14 months" },
+    "clues": {
+      "device": "A single device. It last logged in from the same network as 3 accounts closed for fraud.",
+      "velocity": "The credit limit was raised last week after a year of small, perfectly repaid purchases. 5 maximum-value orders have been placed in 2 days.",
+      "history": "No salary, bills or everyday spending in 14 months. The identity matches no record older than the account. The delivery address was changed to a parcel locker yesterday.",
+      "contact": "Replies by email only: \"All purchases are mine. Do not call.\"",
+      "blockchain": null
+    },
+    "explanation": "This account spent a year building a perfect repayment record so the limit would be raised, and is now spending all of it at once. There is no real life behind it: no pay, no bills, no person to phone.",
+    "giveaways": ["velocity", "history"]
+  },
+  {
+    "id": "ff-003", "level": 3, "truth": "fraud", "patternId": "friendly-fraud",
+    "card": { "customer": "Dominic Farrow", "amount": 899, "currency": "GBP", "method": "Refund claim: \"I never made this purchase\"", "destination": "Verano Air", "country": "United Kingdom", "time": "10:10", "accountAge": "7 years" },
+    "clues": {
+      "device": "The booking was made on the customer's usual laptop, at home.",
+      "velocity": "First claim in 7 years.",
+      "history": "The ticket was in the customer's own name. The airline's records show the passenger checked in and flew.",
+      "contact": "\"It must have been fraud. I don't remember booking it.\"",
+      "blockchain": null
+    },
+    "explanation": "A clean record makes this claim easy to believe, but a fraudster would not book a flight in Dominic's name on Dominic's laptop, and then have Dominic take it.",
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "ct-003", "level": 3, "truth": "fraud", "patternId": "card-testing",
+    "card": { "customer": "Aoife Brennan", "amount": 4.99, "currency": "EUR", "method": "Card payment (online)", "destination": "CloudLocker Storage (new subscription)", "country": "Ireland", "time": "14:20", "accountAge": "5 years" },
+    "clues": {
+      "device": "Card details were typed into a website from a data-centre internet address, not a home or mobile connection.",
+      "velocity": "Only 1 payment on this card today. Across NovaPay, this merchant has charged 240 different cards the same amount in the last hour, and most were refused.",
+      "history": "The customer has no previous payments to this merchant and no other online subscriptions.",
+      "contact": "\"I haven't signed up to anything.\"",
+      "blockchain": null
+    },
+    "explanation": "One small subscription in the customer's own country at a normal hour looks harmless. The pattern only shows when you look across many cards: hundreds tested with the same amount at the same merchant.",
+    "giveaways": ["device", "velocity"]
+  },
+  {
+    "id": "trav-004", "level": 3, "truth": "genuine", "patternId": "genuine-traveller",
+    "card": { "customer": "Kwame Asante", "amount": 230, "currency": "GBP", "method": "Cash machine withdrawal", "destination": "Airport cash machine, Bangkok", "country": "Thailand", "time": "03:50", "accountAge": "5 years" },
+    "clues": {
+      "device": "The customer's own physical card, with the correct PIN first time. The phone app was opened in Thailand an hour earlier with a fingerprint.",
+      "velocity": "First use abroad this year. 1 withdrawal.",
+      "history": "A flight to Bangkok was bought with this card 2 months ago. No changes to contact details.",
+      "contact": "No reply yet.",
+      "blockchain": null
+    },
+    "explanation": "Cash, far from home, in the middle of the night, and the customer isn't answering. But Kwame has just landed on a flight he booked months ago, with his own card, PIN and phone. Not replying is not evidence of fraud.",
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "big-004", "level": 3, "truth": "genuine", "patternId": "genuine-large-purchase",
+    "card": { "customer": "Isabel Crane", "amount": 9500, "currency": "GBP", "method": "Bank transfer", "destination": "New payee: Thornbury Hall Events", "country": "United Kingdom", "time": "22:45", "accountAge": "8 years" },
+    "clues": {
+      "device": "Usual phone. No phone call or screen sharing in progress.",
+      "velocity": "Savings were moved into this account today. 1 transfer.",
+      "history": "The name typed matches the receiving business account, which has been open 15 years.",
+      "contact": "\"Wedding venue balance. I took the bank details from the contract and checked them by ringing the number on the venue's website.\"",
+      "blockchain": null
+    },
+    "explanation": "Savings moved in and sent straight to a new payee late at night is exactly what a 'safe account' scam looks like. The difference is that Isabel verified the details herself through a trusted route, and nobody is on the line with her.",
+    "giveaways": ["history", "contact"]
+  },
+  {
+    "id": "dev-004", "level": 3, "truth": "genuine", "patternId": "genuine-new-device",
+    "card": { "customer": "Samir Qureshi", "amount": 600, "currency": "GBP", "method": "Bank transfer", "destination": "New payee: T. Okonjo", "country": "United Kingdom", "time": "18:40", "accountAge": "3 years" },
+    "clues": {
+      "device": "New phone, first seen 5 days ago. A face check matched the ID on file. The customer removed the old phone themselves.",
+      "velocity": "1 transfer today.",
+      "history": "The mobile network shows no SIM change: the same SIM was moved into the new handset. The name typed matches the receiving account.",
+      "contact": "\"Buying a second-hand bike. I'm standing with the seller now and I've seen the bike.\"",
+      "blockchain": null
+    },
+    "explanation": "A new phone and a new payee together look like a takeover. But the phone passed a face check, the SIM never changed hands and Samir is standing next to the person he is paying.",
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "pass-002", "level": 3, "truth": "genuine", "patternId": "genuine-pass-through",
+    "card": { "customer": "Greta Holm", "amount": 6100, "currency": "GBP", "method": "Bank transfer", "destination": "Savings account at another bank", "country": "United Kingdom", "time": "10:05", "accountAge": "6 years" },
+    "clues": {
+      "device": "Usual phone.",
+      "velocity": "£6,200 arrived yesterday from someone the customer has never dealt with. Most of it is leaving today.",
+      "history": "The destination account is in the customer's own name and has been used for 4 years. This is the first large incoming payment in a year.",
+      "contact": "\"I sold my car on Saturday. The buyer paid by transfer and I'm moving it to my savings.\"",
+      "blockchain": null
+    },
+    "explanation": "A large payment from a stranger leaving the next day looks like mule activity. It is a one-off, though, with a simple explanation, and the money is going to Greta's own long-held savings account.",
+    "giveaways": ["history", "contact"]
+  },
+  {
+    "id": "new-002", "level": 3, "truth": "genuine", "patternId": "genuine-new-customer",
+    "card": { "customer": "Rafael Souza", "amount": 1350, "currency": "GBP", "method": "Bank transfer", "destination": "New payee: Kestrel Lettings", "country": "United Kingdom", "time": "11:50", "accountAge": "6 days" },
+    "clues": {
+      "device": "One phone, used only for this account.",
+      "velocity": "First outgoing payment. One incoming payment 2 days ago.",
+      "history": "Identity was confirmed with a passport, a visa and a live face check. The incoming payment is a first salary from a registered employer. The name typed matches the letting agency's business account.",
+      "contact": "\"I moved here for work this month. This is the deposit for my flat.\"",
+      "blockchain": null
+    },
+    "explanation": "Six days old, almost no history and most of the balance leaving to a new payee. Yet every detail checks out: verified documents, a real employer and a real letting agency. New arrivals have thin histories by definition.",
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "disp-002", "level": 3, "truth": "genuine", "patternId": "genuine-dispute",
+    "card": { "customer": "Winifred Osei", "amount": 58, "currency": "GBP", "method": "Refund claim: \"I was charged twice\"", "destination": "Greenbasket Groceries", "country": "United Kingdom", "time": "14:00", "accountAge": "10 years" },
+    "clues": {
+      "device": "Both charges came from the customer's own card, in the shop, 40 seconds apart.",
+      "velocity": "Second claim in 10 years.",
+      "history": "Two identical charges at the same till in the same minute. The merchant's records show only one basket of shopping.",
+      "contact": "\"The card machine froze and the cashier asked me to tap again.\"",
+      "blockchain": null
+    },
+    "explanation": "The purchase was made on Winifred's own card, which in a 'not me' claim would count against her. But she is not denying the purchase; she is saying she paid twice, and the records agree.",
+    "giveaways": ["history", "contact"]
+  },
+  {
+    "id": "cryg-003", "level": 3, "truth": "genuine", "patternId": "genuine-crypto-withdrawal",
+    "card": { "customer": "Henrik Aalto", "amount": 15000, "currency": "EUR", "method": "Crypto withdrawal", "destination": "External wallet 0x5e…a17d (new)", "country": "Finland", "time": "23:55", "accountAge": "6 years" },
+    "clues": {
+      "device": "Usual computer. No remote access or screen sharing. Two-step login passed with a physical security key.",
+      "velocity": "The largest withdrawal ever made from this account.",
+      "history": "The customer has traded weekly for 6 years. The withdrawal address was added 8 days ago and no security settings have changed.",
+      "contact": "\"I'm moving long-term holdings to cold storage. Nobody asked me to do this. I set the wallet up myself.\"",
+      "blockchain": "Wallet is 8 days old with one small incoming test payment from this account. Nothing has been sent onwards. No links to risky wallets."
+    },
+    "explanation": "The biggest withdrawal the account has ever seen, to a new wallet, late at night. Compare it with an investment scam: here there is a six-year history, strong login, no one watching the screen and a wallet that simply holds the funds.",
+    "giveaways": ["device", "blockchain"]
+  },
+  {
+    "id": "pay-003", "level": 3, "truth": "genuine", "patternId": "genuine-new-payee",
+    "card": { "customer": "Vanessa Thorne", "amount": 3400, "currency": "GBP", "method": "Bank transfer", "destination": "New payee: Calder & Finch Solicitors", "country": "United Kingdom", "time": "16:55", "accountAge": "13 years" },
+    "clues": {
+      "device": "Usual phone. No phone call in progress.",
+      "velocity": "1 transfer today.",
+      "history": "The name typed matches the receiving account, a law firm's client account open for 20 years. The customer paid the same firm a smaller fee last month from another account.",
+      "contact": "\"For goodness' sake, it's my solicitor and the deadline is 5pm. Yes, I checked the details with them by phone. Hurry up.\"",
+      "blockchain": null
+    },
+    "explanation": "Urgency and irritation feel like warning signs, and in a scam the pressure comes from a third party. Here it comes from a real deadline. Vanessa checked the details herself and the account is exactly what it claims to be.",
+    "giveaways": ["history", "contact"]
+  },
+  {
+    "id": "small-003", "level": 3, "truth": "genuine", "patternId": "genuine-small-payments",
+    "card": { "customer": "Jun Nakamura", "amount": 1.00, "currency": "USD", "method": "Card payment", "destination": "Route 9 Fuel (card check)", "country": "United States", "time": "02:10", "accountAge": "4 years" },
+    "clues": {
+      "device": "The card was used in person at a fuel pump, with the chip.",
+      "velocity": "The $1 check was followed by a $52 fuel charge at the same station. 2 other payments in the same town today.",
+      "history": "The customer has been in the US for a week. The flights were bought with this card.",
+      "contact": "\"On a road trip. Just filled up.\"",
+      "blockchain": null
+    },
+    "explanation": "A $1 payment abroad at 2am looks exactly like card testing. It is a fuel pump checking the card works before dispensing, made with the physical card by a customer who has been travelling for a week.",
+    "giveaways": ["device", "velocity"]
   }
 ]

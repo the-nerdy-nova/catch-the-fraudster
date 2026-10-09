@@ -25,6 +25,8 @@ function checkCases(cases, patterns, config) {
     }
     if (!patterns[c.patternId]) {
       console.warn(`Case ${c.id}: unknown patternId "${c.patternId}"`);
+    } else if (patterns[c.patternId].kind !== c.truth) {
+      console.warn(`Case ${c.id}: is "${c.truth}" but its pattern is "${patterns[c.patternId].kind}"`);
     }
     for (const field of CARD_FIELDS) {
       if (c.card?.[field] === undefined) {

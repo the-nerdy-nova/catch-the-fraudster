@@ -1,74 +1,252 @@
 [
   {
-    "id": "account-takeover",
-    "name": "Account takeover",
-    "plainEnglish": "A criminal gets into a real customer's account and uses it as if they were the customer.",
-    "warningSigns": [
-      "A device the customer has never used before",
-      "Password, email or phone number changed shortly before a payment",
-      "A new payee followed quickly by a large withdrawal",
-      "Activity at an unusual time for this customer"
-    ],
-    "howToRespond": "Stop the payment and contact the customer on details held before the recent changes."
-  },
-  {
-    "id": "genuine-traveller",
-    "name": "Genuine customer: travelling abroad",
-    "plainEnglish": "A real customer spending in another country. A foreign location on its own is not fraud.",
-    "warningSigns": [
-      "Same trusted device as always",
-      "Spending that fits a trip: hotels, transport, food",
-      "No recent changes to login or contact details",
-      "Earlier travel bookings on the account"
-    ],
-    "howToRespond": "Approve. Declining leaves a real customer stranded without money abroad."
-  },
-  {
-    "id": "crypto-cash-out",
-    "name": "Crypto cash-out to a fresh wallet",
-    "plainEnglish": "Stolen or fraudulent funds are converted to crypto and sent to a brand-new wallet, where they are very hard to recover.",
-    "warningSigns": [
-      "A very new account with deposits but no normal activity",
-      "Several different cards funding one account",
-      "Withdrawal of nearly the whole balance soon after deposit",
-      "Destination wallet created very recently or linked to risky wallets"
-    ],
-    "howToRespond": "Hold the withdrawal and review where the deposits came from before any funds leave."
-  },
-  {
     "id": "card-testing",
+    "kind": "fraud",
     "name": "Card testing",
     "plainEnglish": "A criminal who has a card number makes tiny payments to find out whether the card works before using it for something bigger.",
-    "warningSigns": [
+    "signs": [
       "Several very small payments in a few minutes",
-      "Different online merchants the customer has never used",
+      "Online merchants the customer has never used",
       "Refused attempts with a wrong security code or expiry date",
-      "Activity while the customer would normally be asleep"
+      "The same merchant charging many different cards the same small amount"
     ],
     "howToRespond": "Decline, block the card and send the customer a replacement."
   },
   {
+    "id": "account-takeover",
+    "kind": "fraud",
+    "name": "Account takeover",
+    "plainEnglish": "A criminal gets into a real customer's account and uses it as if they were the customer.",
+    "signs": [
+      "A device or browser the customer has never used before",
+      "Password, email or phone number changed shortly before a payment",
+      "A new payee followed quickly by a large payment",
+      "Someone else controlling the customer's device remotely",
+      "Payments sized just under a limit that triggers extra checks"
+    ],
+    "howToRespond": "Stop the payment and contact the customer on details held before the recent changes."
+  },
+  {
+    "id": "sim-swap",
+    "kind": "fraud",
+    "name": "SIM swap",
+    "plainEnglish": "A criminal takes over the customer's mobile number, so security codes sent by text message go to the criminal instead.",
+    "signs": [
+      "The mobile network reports a recent SIM change or number transfer",
+      "A password reset or new device approved by text message code soon after",
+      "The customer says their phone has suddenly lost all signal",
+      "The real customer can only be reached by another channel, such as email"
+    ],
+    "howToRespond": "Stop the payment. Do not rely on text message codes; verify the customer another way."
+  },
+  {
+    "id": "money-mule",
+    "kind": "fraud",
+    "name": "Money mule",
+    "plainEnglish": "An account is used to receive stolen money and pass it on, hiding where it came from. The account holder may be recruited with the promise of easy pay.",
+    "signs": [
+      "Money arrives from strangers and leaves again almost immediately",
+      "Activity far above what the customer's income would explain",
+      "A quiet account that suddenly becomes busy",
+      "The customer describes a 'job' that involves moving money and keeping a cut"
+    ],
+    "howToRespond": "Hold the outgoing payment and review the source of the incoming funds."
+  },
+  {
+    "id": "synthetic-identity",
+    "kind": "fraud",
+    "name": "Synthetic identity",
+    "plainEnglish": "An account opened in the name of a person who does not really exist, built from a mix of real and invented details, usually to obtain credit that will never be repaid.",
+    "signs": [
+      "Identity details that match no record older than the account",
+      "An address, device or network shared with many other applicants",
+      "No everyday life on the account: no salary, bills or routine spending",
+      "A sudden run of maximum-value credit purchases",
+      "The customer cannot be reached by phone"
+    ],
+    "howToRespond": "Decline and refer the account for an identity review."
+  },
+  {
+    "id": "friendly-fraud",
+    "kind": "fraud",
+    "name": "Friendly fraud (chargeback abuse)",
+    "plainEnglish": "A real customer makes a real purchase, receives it, and then falsely claims they did not make it or never received it in order to get a refund.",
+    "signs": [
+      "The purchase came from the customer's own usual device and location",
+      "Proof of delivery or use: signed for, boarded, reviewed",
+      "A history of similar claims",
+      "The customer was in contact with the merchant about the order"
+    ],
+    "howToRespond": "Reject the claim and share the evidence with the customer."
+  },
+  {
+    "id": "app-scam",
+    "kind": "fraud",
+    "name": "Authorised push payment scam",
+    "plainEnglish": "A genuine customer is tricked into sending their own money to a criminal. The customer makes the payment themselves and often insists that it is fine.",
+    "signs": [
+      "The customer has been told what to say, or told the bank may ask questions",
+      "Pressure, secrecy or urgency coming from a third party",
+      "The name typed does not match the name on the receiving account",
+      "The customer is on a long phone call or sharing their screen while paying",
+      "Payments that keep rising to someone the customer has never met",
+      "Bank details for a known supplier changed by email"
+    ],
+    "howToRespond": "Stop the payment and talk to the customer away from the scammer's influence. A customer saying 'it's fine' is not enough."
+  },
+  {
+    "id": "promo-abuse",
+    "kind": "fraud",
+    "name": "Promo and bonus abuse",
+    "plainEnglish": "One person opens many accounts to collect sign-up or referral bonuses that are meant to be claimed once.",
+    "signs": [
+      "Many accounts opened from one device",
+      "Accounts sharing an address, bank account or near-identical emails",
+      "Each account does the minimum to earn the bonus and nothing else",
+      "Bonus withdrawn as soon as it lands"
+    ],
+    "howToRespond": "Decline the payout and link the accounts for review."
+  },
+  {
+    "id": "crypto-cash-out",
+    "kind": "fraud",
+    "name": "Crypto cash-out to a fresh wallet",
+    "plainEnglish": "Stolen or fraudulent funds are converted to crypto and sent to a brand-new wallet, where they are very hard to recover.",
+    "signs": [
+      "A new account, or a new device on an old account, just before the withdrawal",
+      "Security settings weakened shortly before the withdrawal",
+      "Nearly the whole balance leaving at once",
+      "Destination wallet created very recently or linked to risky wallets"
+    ],
+    "howToRespond": "Hold the withdrawal and review how the funds and the login got there before anything leaves."
+  },
+  {
+    "id": "genuine-traveller",
+    "kind": "genuine",
+    "name": "Genuine customer: travelling abroad",
+    "plainEnglish": "A real customer spending in another country. A foreign location on its own is not fraud.",
+    "signs": [
+      "The customer's own card, PIN or trusted device was used",
+      "Spending that fits a trip: hotels, transport, food",
+      "Earlier travel bookings on the account",
+      "No recent changes to login or contact details"
+    ],
+    "howToRespond": "Approve. Declining leaves a real customer stranded without money abroad."
+  },
+  {
     "id": "genuine-large-purchase",
+    "kind": "genuine",
     "name": "Genuine customer: big one-off purchase",
     "plainEnglish": "A real customer making an unusually large payment for something planned. A high amount on its own is not fraud.",
-    "warningSigns": [
-      "Earlier deposit or contact with the same merchant",
-      "Customer moved their own money in to cover it",
-      "Usual device and usual location",
-      "Customer can explain the purchase in detail"
+    "signs": [
+      "Earlier deposit or dealings with the same business",
+      "The name typed matches a long-established business account",
+      "The customer checked the details themselves, through a trusted route",
+      "Usual device, and nobody else on a call or sharing the screen"
     ],
     "howToRespond": "Approve. Blocking a planned purchase is frustrating and can cost the customer their order."
   },
   {
     "id": "genuine-new-device",
+    "kind": "genuine",
     "name": "Genuine customer: new phone",
-    "plainEnglish": "A real customer who has replaced their phone. A new device matters most when other details change with it.",
-    "warningSigns": [
-      "No change to password, email or phone number",
-      "Same home location as before",
-      "Payment to a long-standing payee",
-      "Amount and timing match the customer's routine"
+    "plainEnglish": "A real customer who has replaced their phone. A new device matters most when other warning signs come with it.",
+    "signs": [
+      "The new device passed a strong identity check, such as a face match",
+      "No SIM change reported by the mobile network",
+      "Payment fits the customer's routine or goes to a long-standing payee",
+      "The customer can explain it naturally"
     ],
     "howToRespond": "Approve. Look for a new device combined with other changes before treating it as a takeover."
+  },
+  {
+    "id": "genuine-new-payee",
+    "kind": "genuine",
+    "name": "Genuine customer: paying someone new",
+    "plainEnglish": "A real customer paying a new person or business for an ordinary reason. Urgency or a short temper alone does not make it a scam.",
+    "signs": [
+      "The name typed matches the name on the receiving account",
+      "The receiving account is long-established",
+      "The customer got the details first-hand and was not told what to say",
+      "Nobody is on a call with the customer while they pay"
+    ],
+    "howToRespond": "Approve. Compare with a scam: here the customer chose the payee and verified it themselves."
+  },
+  {
+    "id": "genuine-pass-through",
+    "kind": "genuine",
+    "name": "Genuine customer: money in, money out",
+    "plainEnglish": "Money arriving and leaving quickly for an innocent reason, such as collecting friends' shares for a booking or moving the proceeds of a sale.",
+    "signs": [
+      "Senders are people the customer already knows and has dealt with",
+      "A clear real-world reason that matches the account's history",
+      "Money goes to a known business or the customer's own account",
+      "The customer keeps no 'commission'"
+    ],
+    "howToRespond": "Approve. Mule activity involves strangers, vague stories and a cut for the account holder."
+  },
+  {
+    "id": "genuine-new-customer",
+    "kind": "genuine",
+    "name": "Genuine customer: brand-new account",
+    "plainEnglish": "A real person who has only just opened an account, such as a student or someone who has recently moved for work. A short history is not the same as a fake identity.",
+    "signs": [
+      "Identity confirmed with official documents and a live face check",
+      "Income from a recognisable source, such as an employer or student lender",
+      "One device used only for this account",
+      "Spending that looks like real life: rent, food, travel"
+    ],
+    "howToRespond": "Approve. Synthetic identities lack real-life activity and share details with other accounts."
+  },
+  {
+    "id": "genuine-dispute",
+    "kind": "genuine",
+    "name": "Genuine customer: valid refund claim",
+    "plainEnglish": "A real customer who really was charged in error or by a fraudster and is asking for their money back.",
+    "signs": [
+      "The disputed payment came from a device or place never linked to the customer",
+      "The customer acted quickly, for example by freezing their card",
+      "Few or no previous claims",
+      "Records support the customer's account of what happened"
+    ],
+    "howToRespond": "Approve the refund. Rejecting a valid claim leaves a fraud victim out of pocket."
+  },
+  {
+    "id": "genuine-referrals",
+    "kind": "genuine",
+    "name": "Genuine customer: real referrals",
+    "plainEnglish": "A real customer who recommended the service to real people and earned the bonuses fairly.",
+    "signs": [
+      "Each referred person has their own device and address",
+      "Referred accounts are used for everyday spending",
+      "A modest number of referrals over a sensible period"
+    ],
+    "howToRespond": "Approve the payout."
+  },
+  {
+    "id": "genuine-crypto-withdrawal",
+    "kind": "genuine",
+    "name": "Genuine customer: crypto to their own wallet",
+    "plainEnglish": "A real customer moving their own crypto to a wallet they control. A new wallet is not automatically a risky one.",
+    "signs": [
+      "A long trading history on the account",
+      "No changes to security settings, and strong login checks passed",
+      "A small test payment sent first, or a wallet used many times before",
+      "No remote access, no one coaching the customer, no links to risky wallets"
+    ],
+    "howToRespond": "Approve. Compare with a scam: the customer set the wallet up themselves and nobody else is involved."
+  },
+  {
+    "id": "genuine-small-payments",
+    "kind": "genuine",
+    "name": "Genuine customer: lots of small payments",
+    "plainEnglish": "A real customer making many small payments for an everyday reason, such as commuting, in-game purchases or a fuel pump check.",
+    "signs": [
+      "Payments made in person or approved in the customer's own app",
+      "One familiar merchant the customer has used for a long time",
+      "A routine that repeats week after week",
+      "No refused attempts"
+    ],
+    "howToRespond": "Approve. Card testing involves unfamiliar merchants, typed-in card details and refused attempts."
   }
 ]
