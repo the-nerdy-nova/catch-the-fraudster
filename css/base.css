@@ -1,0 +1,117 @@
+/* Colours and sizes used everywhere. Change them here to restyle the game. */
+:root {
+  --bg: #0b0f17;
+  --surface: #131a26;
+  --surface-2: #1a2333;
+  --border: #263247;
+  --text: #e6ebf5;
+  --text-dim: #8f9bb3;
+  --accent: #5b8cff;
+  --good: #2ecc8f;
+  --bad: #ff5c6c;
+  --warn: #ffb547;
+  --radius: 12px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+code {
+  font-family: var(--mono);
+  background: var(--surface-2);
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+}
+
+.brand-sub {
+  color: var(--text-dim);
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.topbar-title {
+  color: var(--text-dim);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+#app {
+  flex: 1;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.footer {
+  padding: 16px;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 13px;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 480px) {
+  .brand-sub {
+    display: none;
+  }
+}

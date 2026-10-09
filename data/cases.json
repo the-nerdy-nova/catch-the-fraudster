@@ -1,0 +1,52 @@
+[
+  {
+    "id": "ato-001",
+    "level": 1,
+    "truth": "fraud",
+    "patternId": "account-takeover",
+    "card": {
+      "customer": "Mira Okafor",
+      "amount": 2400,
+      "currency": "GBP",
+      "method": "Bank withdrawal",
+      "destination": "New payee (added today)",
+      "country": "United Kingdom",
+      "time": "03:12",
+      "accountAge": "4 years"
+    },
+    "clues": {
+      "device": "New device, first seen 20 minutes ago. IP address is in a different country from the customer's usual logins.",
+      "velocity": "3 withdrawals in the last hour. This customer normally makes 1 a month.",
+      "history": "Password and phone number were both changed 25 minutes ago.",
+      "contact": "No reply to chat or to the registered email.",
+      "blockchain": null
+    },
+    "explanation": "Someone other than Mira got into her account. They changed the password and phone number to lock her out, added a brand-new payee and tried to empty the balance in the middle of the night.",
+    "giveaways": ["device", "history"]
+  },
+  {
+    "id": "gen-001",
+    "level": 1,
+    "truth": "genuine",
+    "patternId": "genuine-traveller",
+    "card": {
+      "customer": "Tomas Lindqvist",
+      "amount": 186.5,
+      "currency": "EUR",
+      "method": "Card payment",
+      "destination": "Hotel Mirabela, Lisbon",
+      "country": "Portugal",
+      "time": "21:40",
+      "accountAge": "6 years"
+    },
+    "clues": {
+      "device": "Usual phone, used on this account for 2 years. IP address is in Portugal.",
+      "velocity": "4 card payments today, all in Lisbon: a cafe, a taxi, a museum and this hotel.",
+      "history": "No recent changes to password, email or phone. A flight was bought with this card 3 weeks ago.",
+      "contact": "\"Yes that's me, I'm on holiday in Lisbon until Sunday.\"",
+      "blockchain": null
+    },
+    "explanation": "Tomas is on holiday. The country is unusual for him, but everything else is consistent: his own phone, normal holiday spending and a flight he booked weeks ago.",
+    "giveaways": ["device", "history"]
+  }
+]

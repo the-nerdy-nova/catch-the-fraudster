@@ -1,0 +1,26 @@
+[
+  {
+    "id": "account-takeover",
+    "name": "Account takeover",
+    "plainEnglish": "A criminal gets into a real customer's account and uses it as if they were the customer.",
+    "warningSigns": [
+      "A device the customer has never used before",
+      "Password, email or phone number changed shortly before a payment",
+      "A new payee followed quickly by a large withdrawal",
+      "Activity at an unusual time for this customer"
+    ],
+    "howToRespond": "Stop the payment and contact the customer on details held before the recent changes."
+  },
+  {
+    "id": "genuine-traveller",
+    "name": "Genuine customer: travelling abroad",
+    "plainEnglish": "A real customer spending in another country. A foreign location on its own is not fraud.",
+    "warningSigns": [
+      "Same trusted device as always",
+      "Spending that fits a trip: hotels, transport, food",
+      "No recent changes to login or contact details",
+      "Earlier travel bookings on the account"
+    ],
+    "howToRespond": "Approve. Declining leaves a real customer stranded without money abroad."
+  }
+]
