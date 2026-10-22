@@ -53,3 +53,9 @@ export function rankFor(score, max, config) {
   const rank = config.ranks.find((r) => percent >= r.minPercent) ?? config.ranks.at(-1);
   return rank.name;
 }
+
+// Stars for a rank: the lowest rank gets 1, the highest gets one per rank.
+export function rankStars(rankName, config) {
+  const index = config.ranks.findIndex((r) => r.name === rankName);
+  return index === -1 ? 1 : config.ranks.length - index;
+}

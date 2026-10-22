@@ -41,6 +41,8 @@ export function createShift(allCases, config, level) {
       genuineDeclined: 0,
       losses: 0,
       angry: 0,
+      streak: 0,     // correct decisions in a row
+      bestStreak: 0,
     },
   };
   startNext(shift);
@@ -120,6 +122,10 @@ export function decide(shift, decision) {
   stats.losses += result.loss;
   if (result.correct) {
     stats.correct += 1;
+    stats.streak += 1;
+    stats.bestStreak = Math.max(stats.bestStreak, stats.streak);
+  } else {
+    stats.streak = 0;
   }
 
   shift.phase = 'reveal';
@@ -135,14 +141,19 @@ export function isLastCase(shift) {
   return timeLeft(shift) <= 0 || (shift.queue.length === 0 && shift.upcoming.length === 0);
 }
 
+// Points needed on this shift to pass the level. It depends on which
+// cases were drawn, so it is worked out once the deck is known.
+export function passMark(shift) {
+  return Math.ceil((maxScore(shift.deck, shift.config) * shift.level.unlockPercent) / 100);
+}
+
 export function buildReport(shift) {
-  const { stats, deck, config, level } = shift;
-  const max = maxScore(deck, config);
+  const { stats, deck, config } = shift;
   return {
     score: stats.score,
-    rank: rankFor(stats.score, max, config),
-    // Points needed this shift to unlock the next level.
-    unlockTarget: Math.ceil((max * level.unlockPercent) / 100),
+    rank: rankFor(stats.score, maxScore(deck, config), config),
+    unlockTarget: passMark(shift),
+    bestStreak: stats.bestStreak,
     fraudCaught: stats.fraudCaught,
     fraudTotal: deck.filter((c) => c.truth === 'fraud').length,
     losses: stats.losses,

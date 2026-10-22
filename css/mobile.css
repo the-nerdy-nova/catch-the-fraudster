@@ -1,20 +1,56 @@
 /* Small screens. Loaded last so these rules win over the others. */
 
+@media (max-width: 680px) {
+  .fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .brief-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 600px) {
   #app {
-    padding: 12px 12px 24px;
+    padding: 16px 12px 28px;
   }
 
   .topbar {
     padding: 10px 12px;
   }
 
-  .topbar-title {
+  .brand-sub {
     display: none;
   }
 
-  .card {
+  .panel {
     padding: 16px;
+  }
+
+  .how {
+    grid-template-columns: 1fr;
+  }
+
+  .level {
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .level-num {
+    width: 48px;
+    font-size: 20px;
+  }
+
+  .level-title {
+    font-size: 16px;
+  }
+
+  .screen-title {
+    font-size: 22px;
   }
 
   .card-head {
@@ -22,37 +58,63 @@
   }
 
   .amount {
-    font-size: 28px;
+    font-size: 32px;
   }
 
-  .start-title,
-  .report-rank {
-    font-size: 26px;
-  }
-
-  /* Keep the clock in view while scrolling through clues. */
-  .hud {
-    position: sticky;
-    top: 0;
-    z-index: 5;
-    margin-bottom: 4px;
-    padding: 8px 0;
-    background: var(--bg);
-  }
-
-  .hud-item {
-    padding: 8px 10px;
-  }
-
-  .hud-item .label {
-    font-size: 11px;
-  }
-
-  .hud-value {
+  .stamp {
     font-size: 20px;
   }
 
+  .report-score {
+    font-size: 36px;
+  }
+
+  .report-rank {
+    font-size: 24px;
+  }
+
+  /* Compact HUD that stays pinned to the top while scrolling clues. */
+  .hud {
+    position: sticky;
+    top: 6px;
+    z-index: 20;
+    grid-template-columns: 1.3fr 1fr 0.9fr 0.9fr;
+    background: linear-gradient(165deg, rgba(20, 30, 60, 0.97), rgba(8, 12, 28, 0.98));
+  }
+
+  .hud-cell {
+    padding: 8px 10px;
+  }
+
+  .hud-label {
+    font-size: 8px;
+    letter-spacing: 0.14em;
+  }
+
+  .hud-value {
+    font-size: 18px;
+  }
+
+  .score-pop {
+    top: 4px;
+    right: 6px;
+    font-size: 12px;
+  }
+
+  .hud-target {
+    gap: 10px;
+    padding: 7px 10px;
+  }
+
+  .hud-target-text {
+    font-size: 11px;
+  }
+
   /* The queue scrolls sideways so it never pushes the card down. */
+  .queue {
+    padding: 6px 10px;
+  }
+
   .queue-list {
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -65,18 +127,34 @@
   }
 
   /* Keep Approve / Investigate / Decline reachable under a long clue list. */
-  #case-card .actions {
+  .decision-actions {
     position: sticky;
     bottom: 0;
+    z-index: 15;
+    gap: 8px;
     margin: 0 -16px -16px;
-    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
-    background: var(--surface);
-    border-top: 1px solid var(--border);
+    padding: 12px 12px calc(12px + env(safe-area-inset-bottom));
+    background: linear-gradient(to top, rgba(8, 12, 28, 0.99) 75%, rgba(8, 12, 28, 0.9));
+    border-top: 1px solid var(--line);
     border-radius: 0 0 var(--radius) var(--radius);
   }
 
-  #case-card .actions .btn {
-    font-size: 15px;
+  .decision-actions .btn {
+    min-height: 54px;
+    padding: 10px 6px;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+  }
+
+  .btn {
+    font-size: 13px;
+    letter-spacing: 0.06em;
+  }
+
+  /* Keyboard hints are no use on a phone. */
+  .btn kbd,
+  .key-hint {
+    display: none;
   }
 }
 
@@ -85,7 +163,11 @@
     grid-template-columns: 1fr;
   }
 
-  .stat dd {
+  .brief-value {
     font-size: 18px;
+  }
+
+  .stat dd {
+    font-size: 16px;
   }
 }

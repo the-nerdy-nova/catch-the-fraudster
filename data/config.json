@@ -1,5 +1,4 @@
 {
-  "shiftSeconds": 180,
   "clueCostSeconds": 10,
   "points": {
     "fraudCaught": 100,
@@ -9,14 +8,32 @@
     "angryCustomer": -20
   },
   "speedBonus": [
-    { "withinSeconds": 8, "points": 20 },
-    { "withinSeconds": 15, "points": 10 }
+    {
+      "withinSeconds": 10,
+      "points": 20
+    },
+    {
+      "withinSeconds": 20,
+      "points": 10
+    }
   ],
   "ranks": [
-    { "name": "Fraud Hunter", "minPercent": 85 },
-    { "name": "Senior Investigator", "minPercent": 65 },
-    { "name": "Analyst", "minPercent": 40 },
-    { "name": "Trainee", "minPercent": 0 }
+    {
+      "name": "Fraud Hunter",
+      "minPercent": 85
+    },
+    {
+      "name": "Senior Investigator",
+      "minPercent": 65
+    },
+    {
+      "name": "Analyst",
+      "minPercent": 40
+    },
+    {
+      "name": "Trainee",
+      "minPercent": 0
+    }
   ],
   "reportCurrency": "GBP",
   "ratesToReportCurrency": {

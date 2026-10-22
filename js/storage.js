@@ -44,3 +44,21 @@ export function clearProgress() {
   }
   return freshProgress();
 }
+
+const SOUND_KEY = 'catch-the-fraudster-sound';
+
+export function loadSoundOn() {
+  try {
+    return localStorage.getItem(SOUND_KEY) !== 'off';
+  } catch {
+    return true;
+  }
+}
+
+export function saveSoundOn(on) {
+  try {
+    localStorage.setItem(SOUND_KEY, on ? 'on' : 'off');
+  } catch {
+    // Storage unavailable: the choice lasts until the page is closed.
+  }
+}
