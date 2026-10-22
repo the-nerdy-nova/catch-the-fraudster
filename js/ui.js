@@ -27,7 +27,7 @@ const STAMPS = {
   genuineDeclined: 'False alarm',
 };
 
-const SCREENS = ['start', 'briefing', 'shift', 'report', 'encyclopedia'];
+const SCREENS = ['start', 'briefing', 'shift', 'report', 'leaderboard', 'encyclopedia'];
 
 function prefersReducedMotion() {
   return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
@@ -45,6 +45,18 @@ export function showScreen(name) {
   for (const screen of SCREENS) {
     el(`screen-${screen}`).hidden = screen !== name;
   }
+  // Highlight the matching tab in the top navigation. The briefing and
+  // report belong to Play.
+  const section = ['briefing', 'shift', 'report'].includes(name) ? 'start' : name;
+  for (const link of document.querySelectorAll('.nav-link')) {
+    if (link.dataset.screen === section) {
+      link.setAttribute('aria-current', 'page');
+    } else {
+      link.removeAttribute('aria-current');
+    }
+  }
+  // Hide the navigation during a shift so the clock can't be left running.
+  document.body.classList.toggle('in-shift', name === 'shift');
   window.scrollTo(0, 0);
 }
 
@@ -85,56 +97,93 @@ export function setSoundButton(on) {
 
 // ---- Menu ----
 
+// A half-circle gauge showing a percentage, like a "chance" dial.
+function buildGauge(percent, passPercent) {
+  const wrap = document.createElement('span');
+  wrap.className = 'gauge';
+  const value = Math.max(0, Math.min(100, percent ?? 0));
+  const passed = percent !== null && value >= passPercent;
+  // Numbers only, so building the SVG from a string is safe.
+  wrap.innerHTML =
+    `<svg viewBox="0 0 100 56" aria-hidden="true">` +
+    `<path class="gauge-track" d="M8 50 A42 42 0 0 1 92 50" pathLength="100"/>` +
+    `<path class="gauge-fill${passed ? ' is-passed' : ''}" d="M8 50 A42 42 0 0 1 92 50" pathLength="100" stroke-dasharray="${value} 100"/>` +
+    `</svg>`;
+  const number = document.createElement('span');
+  number.className = 'gauge-value';
+  number.textContent = percent === null ? '–' : `${value}%`;
+  const label = document.createElement('span');
+  label.className = 'gauge-label';
+  label.textContent = 'best';
+  wrap.append(number, label);
+  return wrap;
+}
+
 // levels: [{ id, name, description, cases, seconds, percent, locked,
-//            lockedHint, best: { score, rank, stars } | undefined }]
-export function renderMenu(levels, starTotal, encyclopediaLabel, onPlay) {
+//            lockedHint, best: { score, rank, stars, percent } | undefined }]
+export function renderMenu(levels, starTotal, onPlay) {
   const list = el('level-list');
   list.replaceChildren();
   for (const level of levels) {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'level';
-    button.disabled = level.locked;
+    const card = document.createElement('button');
+    card.type = 'button';
+    card.className = 'level';
+    card.disabled = level.locked;
 
+    const top = document.createElement('span');
+    top.className = 'level-top';
+
+    const icon = document.createElement('span');
+    icon.className = `level-icon tier-${level.id}`;
+    icon.textContent = level.locked ? '🔒' : ['🕵️', '🔎', '🛡️'][level.id - 1] ?? '🕵️';
+
+    const heading = document.createElement('span');
+    heading.className = 'level-heading';
     const number = document.createElement('span');
     number.className = 'level-num';
-    number.textContent = String(level.id).padStart(2, '0');
-
-    const body = document.createElement('span');
-    body.className = 'level-body';
-
+    number.textContent = `Level ${level.id}`;
     const title = document.createElement('span');
     title.className = 'level-title';
     title.textContent = level.name;
+    heading.append(number, title);
+
+    top.append(icon, heading, buildGauge(level.best?.percent ?? null, level.percent));
 
     const description = document.createElement('span');
     description.className = 'level-description';
     description.textContent = level.description;
 
-    const meta = document.createElement('span');
-    meta.className = 'level-meta';
-    meta.textContent =
-      `⏱ ${formatTime(level.seconds)} · ${level.cases} cases · Pass mark ${level.percent}% of a perfect shift`;
-
     const status = document.createElement('span');
     status.className = 'level-status';
     if (level.locked) {
-      status.textContent = `🔒 ${level.lockedHint}`;
+      status.textContent = level.lockedHint;
     } else if (level.best) {
       const starSpan = document.createElement('span');
       starSpan.className = 'level-stars';
       starSpan.textContent = stars(level.best.stars, starTotal);
       status.append(starSpan, ` Best ${level.best.score} · ${level.best.rank}`);
     } else {
-      status.textContent = '▶ Ready to play';
+      status.textContent = 'Not played yet';
     }
 
-    body.append(title, description, meta, status);
-    button.append(number, body);
-    button.addEventListener('click', () => onPlay(level.id));
-    list.append(button);
+    const footer = document.createElement('span');
+    footer.className = 'level-footer';
+    const meta = document.createElement('span');
+    meta.className = 'level-meta';
+    meta.textContent = `${formatTime(level.seconds)} · ${level.cases} cases · Pass ${level.percent}%`;
+    const play = document.createElement('span');
+    play.className = 'level-play';
+    play.textContent = level.locked ? 'Locked' : 'Play';
+    footer.append(meta, play);
+
+    card.append(top, description, status, footer);
+    card.addEventListener('click', () => onPlay(level.id));
+    list.append(card);
   }
-  el('btn-encyclopedia').textContent = encyclopediaLabel;
+}
+
+export function setEncyclopediaCount(found, total) {
+  el('nav-ency-count').textContent = `${found}/${total}`;
 }
 
 // ---- Briefing ----
@@ -421,7 +470,7 @@ export function renderReveal(currentCase, result, pattern, openedClues, isLast) 
   }
 
   const next = el('btn-next');
-  next.textContent = isLast ? 'See report ▶' : 'Next case ▶';
+  next.textContent = isLast ? 'See report' : 'Next case';
 
   el('case-card').hidden = true;
   reveal.hidden = false;
@@ -466,6 +515,8 @@ function countUp(node, target) {
 export function renderReport(report, extras) {
   el('report-level').textContent = `Shift report · ${extras.levelLabel}`;
   setShareStatus('');
+  el('entry-form').hidden = true;
+  el('entry-saved').hidden = true;
   el('report-emblem').dataset.tier = String(extras.stars);
   el('report-stars').textContent = stars(extras.stars, extras.starTotal);
   el('report-best').hidden = !extras.isNewBest;
@@ -489,4 +540,23 @@ export function renderReport(report, extras) {
   addStat(grid, 'Angry customers', report.angry, report.angry > 0 ? 'is-bad' : '');
   addStat(grid, 'Pass mark', `${report.unlockTarget} pts`);
   addStat(grid, 'Not reviewed', report.notReviewed);
+}
+
+// ---- Leaderboard entry on the report ----
+
+export function showEntryForm(place, defaultName) {
+  el('entry-title').textContent = place === 1
+    ? '🏆 New top score on this device!'
+    : `You made the leaderboard at #${place}!`;
+  const input = el('entry-name');
+  input.value = defaultName;
+  el('entry-form').hidden = false;
+  el('entry-saved').hidden = true;
+  input.focus({ preventScroll: true });
+  input.select();
+}
+
+export function showEntrySaved() {
+  el('entry-form').hidden = true;
+  el('entry-saved').hidden = false;
 }

@@ -1,25 +1,30 @@
-/* Colours, fonts, page layout and the animated backdrop.
-   Change the colours here to restyle the whole game. */
+/* Colours, fonts, page layout and the top navigation.
+   A flat, dark-navy dashboard style. Change the colours here to restyle
+   the whole game. */
 :root {
-  --bg: #05070f;
-  --panel-top: rgba(20, 30, 60, 0.88);
-  --panel-bottom: rgba(8, 12, 28, 0.92);
-  --cell: rgba(255, 255, 255, 0.035);
-  --cell-strong: rgba(255, 255, 255, 0.06);
-  --line: rgba(110, 150, 255, 0.18);
-  --line-strong: rgba(34, 211, 238, 0.5);
-  --text: #eaf2ff;
-  --text-dim: #8d9bc2;
-  --cyan: #22d3ee;
-  --violet: #8b5cf6;
-  --magenta: #ff3dcd;
-  --good: #34f5a0;
-  --bad: #ff4466;
-  --warn: #ffc23d;
-  --gold: #ffd166;
-  --radius: 10px;
-  --font: "Exo 2", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --display: "Orbitron", "Exo 2", system-ui, sans-serif;
+  --bg: #1d2b39;
+  --card: #253648;
+  --card-hover: #2b3f53;
+  --raised: #2f4459;
+  --border: #34495e;
+  --border-soft: rgba(255, 255, 255, 0.06);
+  --text: #ffffff;
+  --text-2: #c7d1dc;
+  --muted: #8a9bad;
+  --blue: #2e5cff;
+  --blue-hover: #4a72ff;
+  --blue-soft: rgba(46, 92, 255, 0.16);
+  --green: #27ae60;
+  --green-text: #3fd08b;
+  --green-soft: rgba(39, 174, 96, 0.16);
+  --red: #e24c4c;
+  --red-text: #ff6f6f;
+  --red-soft: rgba(226, 76, 76, 0.16);
+  --amber: #f2994a;
+  --amber-soft: rgba(242, 153, 74, 0.16);
+  --gold: #f2c94c;
+  --radius: 12px;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   color-scheme: dark;
 }
@@ -41,7 +46,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font);
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -62,20 +67,20 @@ kbd {
 
 code {
   padding: 2px 6px;
-  background: var(--cell-strong);
+  background: var(--raised);
   border-radius: 6px;
 }
 
 kbd {
   display: inline-block;
-  min-width: 22px;
-  padding: 1px 6px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-bottom-width: 2px;
-  border-radius: 5px;
-  font-size: 12px;
-  line-height: 1.5;
+  min-width: 20px;
+  padding: 0 5px;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  font-size: 11px;
+  line-height: 1.6;
   text-align: center;
+  opacity: 0.6;
 }
 
 [hidden] {
@@ -83,74 +88,31 @@ kbd {
 }
 
 ::selection {
-  background: rgba(34, 211, 238, 0.35);
+  background: var(--blue-soft);
 }
 
-/* ---- Backdrop ---- */
-
-.bg {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse 70% 50% at 15% -5%, rgba(139, 92, 246, 0.28), transparent 60%),
-    radial-gradient(ellipse 60% 45% at 95% 5%, rgba(34, 211, 238, 0.2), transparent 60%),
-    radial-gradient(ellipse 80% 50% at 50% 110%, rgba(255, 61, 205, 0.16), transparent 60%),
-    var(--bg);
-}
-
-/* A neon floor grid receding into the distance */
-.bg-grid {
-  position: absolute;
-  left: -50%;
-  right: -50%;
-  bottom: 0;
-  height: 60%;
-  background-image:
-    linear-gradient(rgba(34, 211, 238, 0.16) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34, 211, 238, 0.16) 1px, transparent 1px);
-  background-size: 56px 56px;
-  transform: perspective(420px) rotateX(62deg);
-  transform-origin: 50% 100%;
-  -webkit-mask-image: linear-gradient(to top, #000 5%, transparent 65%);
-  mask-image: linear-gradient(to top, #000 5%, transparent 65%);
-  animation: grid-move 3s linear infinite;
-}
-
-@keyframes grid-move {
-  to {
-    background-position: 0 56px;
-  }
-}
-
-.bg-scan {
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.025) 0 1px,
-    transparent 1px 4px
-  );
-}
-
-/* ---- Top bar ---- */
+/* ---- Top navigation ---- */
 
 .topbar {
-  position: relative;
-  z-index: 10;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 20px;
-  background: rgba(5, 8, 18, 0.7);
-  border-bottom: 1px solid var(--line);
-  backdrop-filter: blur(10px);
+  gap: 24px;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 12px 24px;
 }
 
 .brand {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   gap: 10px;
 }
@@ -158,69 +120,106 @@ kbd {
 .brand-mark {
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border-radius: 8px;
-  background: linear-gradient(135deg, var(--cyan), var(--violet));
+  background: var(--blue);
   color: #fff;
-  font-family: var(--display);
-  font-weight: 900;
-  box-shadow: 0 0 18px rgba(34, 211, 238, 0.55);
+  font-weight: 800;
 }
 
 .brand-name {
-  font-family: var(--display);
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .brand-sub {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 3px 10px;
-  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.nav {
+  display: flex;
+  flex: 1;
+  gap: 4px;
+}
+
+.nav-link {
+  position: relative;
+  padding: 8px 12px;
+  background: none;
+  border: 0;
+  border-radius: 8px;
+  color: var(--muted);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  background: var(--card);
+  color: var(--text);
+}
+
+.nav-link[aria-current="page"] {
+  color: var(--text);
+}
+
+.nav-link[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  right: 12px;
+  bottom: -13px;
+  left: 12px;
+  height: 2px;
+  background: var(--blue);
+  border-radius: 2px;
+}
+
+.nav-link:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.nav-count {
+  margin-left: 4px;
+  padding: 1px 6px;
   border-radius: 999px;
-  color: var(--text-dim);
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  background: var(--raised);
+  color: var(--text-2);
+  font-size: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 
-.live-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--good);
-  box-shadow: 0 0 8px var(--good);
-  animation: blink 1.6s ease-in-out infinite;
-}
-
-@keyframes blink {
-  50% {
-    opacity: 0.25;
-  }
+/* During a shift the navigation is hidden so the clock can't be left running. */
+.in-shift .nav {
+  visibility: hidden;
 }
 
 .icon-btn {
   display: grid;
+  flex-shrink: 0;
   place-items: center;
-  width: 42px;
-  height: 42px;
-  background: var(--cell);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  font-size: 18px;
+  width: 38px;
+  height: 38px;
+  margin-left: auto;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 16px;
   cursor: pointer;
 }
 
 .icon-btn:hover {
-  border-color: var(--line-strong);
+  background: var(--card-hover);
 }
 
 .icon-btn:focus-visible {
-  outline: 2px solid var(--cyan);
+  outline: 2px solid var(--blue);
   outline-offset: 2px;
 }
 
@@ -229,18 +228,17 @@ kbd {
 #app {
   flex: 1;
   width: 100%;
-  max-width: 760px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 28px 20px 40px;
+  padding: 28px 24px 40px;
 }
 
 .footer {
-  padding: 16px;
-  color: var(--text-dim);
+  padding: 18px 16px;
+  color: var(--muted);
   font-size: 13px;
   text-align: center;
-  border-top: 1px solid var(--line);
-  background: rgba(5, 8, 18, 0.6);
+  border-top: 1px solid var(--border);
 }
 
 @media (prefers-reduced-motion: reduce) {

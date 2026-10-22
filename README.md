@@ -24,12 +24,14 @@ Then open http://localhost:8000. Press `Ctrl+C` in Terminal to stop the server.
   - `data.js` loads and checks the content
   - `game.js` runs a shift (clock, queue, decisions)
   - `scoring.js` turns decisions into points and a rank
-  - `ui.js` and `encyclopedia.js` draw the page
-  - `storage.js` saves progress in the browser
+  - `ui.js`, `encyclopedia.js` and `leaderboard.js` draw the page
+  - `storage.js` saves progress and the leaderboard in the browser
+  - `sfx.js` makes the sound effects
+  - `share.js` builds the "copy my score" text
 - `data/`: all game content
   - `cases.json`: every transaction
   - `patterns.json`: fraud patterns and genuine look-alikes
-  - `levels.json`: pace and unlock threshold for each level
+  - `levels.json`: shift length, pace and pass mark (`unlockPercent`) for each level
   - `config.json`: points, speed bonus, ranks and clue cost
 
 ## Put it online with GitHub Pages

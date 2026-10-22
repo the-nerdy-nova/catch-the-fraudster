@@ -5,29 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Catch the Fraudster</title>
   <meta name="description" content="A browser game where you play a fraud investigator. Approve, decline or investigate each transaction and learn the warning signs of real fraud.">
-  <meta name="theme-color" content="#05070f">
+  <meta name="theme-color" content="#1d2b39">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%95%B5%EF%B8%8F%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700&family=Orbitron:wght@600;700;800;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
-  <!-- Animated backdrop: glow, perspective grid and scanlines -->
-  <div class="bg" aria-hidden="true">
-    <div class="bg-grid"></div>
-    <div class="bg-scan"></div>
-  </div>
-
   <header class="topbar">
-    <div class="brand">
-      <span class="brand-mark">N</span>
-      <span class="brand-name">NovaPay</span>
-      <span class="brand-sub"><span class="live-dot"></span>Fraud Ops · Live</span>
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-mark">N</span>
+        <span class="brand-name">NovaPay</span>
+        <span class="brand-sub">Fraud Desk</span>
+      </div>
+      <nav id="main-nav" class="nav" aria-label="Main">
+        <button class="nav-link" type="button" data-screen="start">Play</button>
+        <button class="nav-link" type="button" data-screen="leaderboard">Leaderboard</button>
+        <button class="nav-link" type="button" data-screen="encyclopedia">Encyclopedia <span id="nav-ency-count" class="nav-count"></span></button>
+      </nav>
+      <button id="btn-sound" class="icon-btn" type="button" aria-pressed="true" aria-label="Sound on">🔊</button>
     </div>
-    <button id="btn-sound" class="icon-btn" type="button" aria-pressed="true" aria-label="Sound on">🔊</button>
   </header>
 
   <main id="app">
@@ -37,9 +38,8 @@
     <!-- Screen 1: menu -->
     <section id="screen-start" class="screen" hidden>
       <div class="hero">
-        <p class="eyebrow">NovaPay Fraud Operations</p>
-        <h1 class="game-title"><span>Catch the</span><span>Fraudster</span></h1>
-        <p class="tagline">Stop the fraud. Protect real customers. Beat the clock.</p>
+        <h1 class="game-title">Catch the Fraudster</h1>
+        <p class="tagline">You're a fraud investigator. Stop the fraud, protect real customers and beat the clock.</p>
       </div>
 
       <div class="how">
@@ -49,12 +49,9 @@
         <div class="how-item"><span class="how-icon is-warn">⏱</span><span><strong>Keep the queue moving</strong> or customers get angry</span></div>
       </div>
 
-      <h2 class="section-title">Select mission</h2>
+      <h2 class="section-title">Missions</h2>
       <div id="level-list" class="level-list"></div>
 
-      <div class="menu-actions">
-        <button id="btn-encyclopedia" class="btn btn-secondary" type="button">Fraud Encyclopedia</button>
-      </div>
       <button id="btn-reset" class="link-button" type="button">Reset my progress</button>
     </section>
 
@@ -73,7 +70,7 @@
         <p id="briefing-pass" class="briefing-pass"></p>
         <div class="actions">
           <button id="btn-briefing-back" class="btn btn-secondary" type="button">Back</button>
-          <button id="btn-go" class="btn btn-primary" type="button">Start shift ▶</button>
+          <button id="btn-go" class="btn btn-primary" type="button">Start shift</button>
         </div>
         <p class="key-hint">Keyboard: <kbd>A</kbd> approve · <kbd>I</kbd> investigate · <kbd>D</kbd> decline · <kbd>N</kbd> next case</p>
       </div>
@@ -114,7 +111,6 @@
 
       <!-- The transaction the player is deciding on -->
       <section id="case-card" class="panel case-card">
-        <div class="scanline" aria-hidden="true"></div>
         <div class="card-head">
           <span class="case-tag"><span class="live-dot"></span>Incoming transaction</span>
           <span id="case-angry" class="badge is-fraud" hidden>😡 Angry customer</span>
@@ -134,14 +130,14 @@
 
         <div class="actions decision-actions">
           <button id="btn-approve" class="btn btn-approve" type="button">
-            <span>✓ Approve</span><kbd>A</kbd>
+            <span>Approve</span><kbd>A</kbd>
           </button>
           <button id="btn-investigate" class="btn btn-investigate" type="button"
                   aria-expanded="false" aria-controls="clue-panel">
             <span id="investigate-label">🔍 Investigate</span><kbd>I</kbd>
           </button>
           <button id="btn-decline" class="btn btn-decline" type="button">
-            <span>✕ Decline</span><kbd>D</kbd>
+            <span>Decline</span><kbd>D</kbd>
           </button>
         </div>
       </section>
@@ -165,7 +161,7 @@
         <h4 id="reveal-signs-title" class="signs-title">Warning signs to remember</h4>
         <ul id="reveal-signs" class="signs"></ul>
         <div class="actions">
-          <button id="btn-next" class="btn btn-primary" type="button">Next case ▶</button>
+          <button id="btn-next" class="btn btn-primary" type="button">Next case</button>
         </div>
       </section>
 
@@ -182,33 +178,69 @@
         <p id="report-stars" class="stars" aria-hidden="true"></p>
         <h2 id="report-rank" class="report-rank"></h2>
         <p class="report-score"><span id="report-score">0</span> <span class="report-score-unit">points</span></p>
-        <p id="report-best" class="report-best" hidden>★ New best score for this level</p>
+        <p id="report-best" class="report-best" hidden>New best score for this level</p>
         <p id="report-message" class="pass-banner" hidden></p>
+
+        <!-- Shown when the score makes this device's top ten -->
+        <form id="entry-form" class="entry-form" hidden>
+          <p id="entry-title" class="entry-title"></p>
+          <label class="entry-form-label" for="entry-name">Your name on the leaderboard</label>
+          <div class="entry-row">
+            <input id="entry-name" class="entry-input" type="text" maxlength="16"
+                   autocomplete="nickname" spellcheck="false" placeholder="Nickname">
+            <button class="btn btn-primary entry-save" type="submit">Save</button>
+          </div>
+        </form>
+        <p id="entry-saved" class="entry-saved" hidden>
+          ✓ Saved to the leaderboard.
+          <button id="btn-view-board" class="link-inline" type="button">View leaderboard</button>
+        </p>
+
         <dl id="report-stats" class="stats"></dl>
         <div class="actions">
-          <button id="btn-share" class="btn btn-secondary" type="button">⧉ Copy my score</button>
+          <button id="btn-share" class="btn btn-secondary" type="button">Copy my score</button>
         </div>
         <p id="share-status" class="share-status" role="status"></p>
         <div class="actions">
-          <button id="btn-again" class="btn btn-primary" type="button">↻ Play again</button>
+          <button id="btn-again" class="btn btn-primary" type="button">Play again</button>
           <button id="btn-menu" class="btn btn-secondary" type="button">Menu</button>
         </div>
       </div>
     </section>
 
-    <!-- Screen 5: Fraud Encyclopedia -->
+    <!-- Screen 5: leaderboard -->
+    <section id="screen-leaderboard" class="screen" hidden>
+      <h2 class="screen-title">Leaderboard</h2>
+      <p class="tagline">Top 10 scores on this device for each level. Hand over the device and see who's the best investigator.</p>
+      <div id="board-tabs" class="tabs" role="tablist" aria-label="Level"></div>
+      <div class="panel board">
+        <table id="board-table" class="board-table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Player</th>
+              <th scope="col">Score</th>
+              <th scope="col" class="board-rank">Rank</th>
+              <th scope="col" class="board-accuracy">Accuracy</th>
+              <th scope="col" class="board-date">Date</th>
+            </tr>
+          </thead>
+          <tbody id="board-body"></tbody>
+        </table>
+        <p id="board-empty" class="board-empty" hidden></p>
+      </div>
+      <button id="btn-clear-board" class="link-button" type="button">Clear leaderboard</button>
+    </section>
+
+    <!-- Screen 6: Fraud Encyclopedia -->
     <section id="screen-encyclopedia" class="screen" hidden>
-      <p class="eyebrow">Case files</p>
       <h2 class="screen-title">Fraud Encyclopedia</h2>
       <p id="encyclopedia-count" class="tagline"></p>
-      <div class="actions encyclopedia-actions">
-        <button id="btn-encyclopedia-back" class="btn btn-secondary" type="button">◀ Back to menu</button>
-      </div>
       <div id="encyclopedia-list"></div>
     </section>
   </main>
 
-  <!-- Full-screen colour flash after each decision -->
+  <!-- Brief colour wash at the screen edges after each decision -->
   <div id="flash" class="flash" aria-hidden="true"></div>
 
   <footer class="footer">All people, companies and transactions are fictional.</footer>

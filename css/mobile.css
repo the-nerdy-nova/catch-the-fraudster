@@ -1,56 +1,74 @@
-/* Small screens. Loaded last so these rules win over the others. */
+/* Smaller screens. Loaded last so these rules win over the others. */
+
+@media (max-width: 960px) {
+  .level-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .how {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 
 @media (max-width: 680px) {
-  .fields {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
+  .fields,
+  .stats,
   .brief-stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Hide the less important leaderboard columns. */
+  .board-rank,
+  .board-date {
+    display: none;
   }
 }
 
 @media (max-width: 600px) {
   #app {
-    padding: 16px 12px 28px;
+    padding: 18px 12px 28px;
   }
 
-  .topbar {
-    padding: 10px 12px;
+  .topbar-inner {
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    padding: 10px 12px 0;
   }
 
   .brand-sub {
     display: none;
   }
 
+  /* The navigation moves to its own row under the logo. */
+  .nav {
+    order: 3;
+    flex-basis: 100%;
+    margin: 0 -4px;
+  }
+
+  .nav-link {
+    padding: 10px;
+  }
+
+  .nav-link[aria-current="page"]::after {
+    bottom: -1px;
+  }
+
+  .in-shift .nav {
+    display: none;
+  }
+
+  .in-shift .topbar-inner {
+    padding-bottom: 10px;
+  }
+
   .panel {
     padding: 16px;
   }
 
-  .how {
+  .how,
+  .level-list {
     grid-template-columns: 1fr;
-  }
-
-  .level {
-    gap: 12px;
-    padding: 14px;
-  }
-
-  .level-num {
-    width: 48px;
-    font-size: 20px;
-  }
-
-  .level-title {
-    font-size: 16px;
-  }
-
-  .screen-title {
-    font-size: 22px;
   }
 
   .card-head {
@@ -58,28 +76,24 @@
   }
 
   .amount {
-    font-size: 32px;
-  }
-
-  .stamp {
-    font-size: 20px;
+    font-size: 30px;
   }
 
   .report-score {
-    font-size: 36px;
+    font-size: 34px;
   }
 
-  .report-rank {
-    font-size: 24px;
+  .board-table th,
+  .board-table td {
+    padding: 10px;
   }
 
-  /* Compact HUD that stays pinned to the top while scrolling clues. */
+  /* Compact HUD that stays pinned below the top bar while scrolling. */
   .hud {
     position: sticky;
-    top: 6px;
+    top: 60px;
     z-index: 20;
     grid-template-columns: 1.3fr 1fr 0.9fr 0.9fr;
-    background: linear-gradient(165deg, rgba(20, 30, 60, 0.97), rgba(8, 12, 28, 0.98));
   }
 
   .hud-cell {
@@ -87,8 +101,7 @@
   }
 
   .hud-label {
-    font-size: 8px;
-    letter-spacing: 0.14em;
+    font-size: 11px;
   }
 
   .hud-value {
@@ -102,12 +115,12 @@
   }
 
   .hud-target {
-    gap: 10px;
+    gap: 8px;
     padding: 7px 10px;
   }
 
   .hud-target-text {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   /* The queue scrolls sideways so it never pushes the card down. */
@@ -134,21 +147,15 @@
     gap: 8px;
     margin: 0 -16px -16px;
     padding: 12px 12px calc(12px + env(safe-area-inset-bottom));
-    background: linear-gradient(to top, rgba(8, 12, 28, 0.99) 75%, rgba(8, 12, 28, 0.9));
-    border-top: 1px solid var(--line);
+    background: var(--card);
+    border-top: 1px solid var(--border);
     border-radius: 0 0 var(--radius) var(--radius);
   }
 
   .decision-actions .btn {
-    min-height: 54px;
+    min-height: 50px;
     padding: 10px 6px;
-    font-size: 12px;
-    letter-spacing: 0.06em;
-  }
-
-  .btn {
-    font-size: 13px;
-    letter-spacing: 0.06em;
+    font-size: 14px;
   }
 
   /* Keyboard hints are no use on a phone. */
@@ -165,9 +172,5 @@
 
   .brief-value {
     font-size: 18px;
-  }
-
-  .stat dd {
-    font-size: 16px;
   }
 }

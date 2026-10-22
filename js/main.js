@@ -10,10 +10,14 @@ import {
   showScreen, showNotice, setSoundButton, renderMenu, renderBriefing,
   renderHud, renderQueue, renderCase, renderReveal, renderReport,
   toggleCluePanel, flashTimeCost, popScore, flashScreen, setShareStatus,
+  setEncyclopediaCount, showEntryForm, showEntrySaved,
 } from './ui.js';
 import { renderEncyclopedia } from './encyclopedia.js';
+import { renderLeaderboard } from './leaderboard.js';
 import {
   loadProgress, saveProgress, clearProgress, loadSoundOn, saveSoundOn,
+  loadLeaderboard, boardPlace, addToLeaderboard, clearLeaderboard,
+  loadLastName, saveLastName,
 } from './storage.js';
 import { buildShareText, copyText } from './share.js';
 import { sfx, setSoundEnabled } from './sfx.js';
@@ -32,6 +36,10 @@ let timerId = null;
 let lastTick = 0;
 let lastWholeSecond = null;
 let shareText = '';
+let board = loadLeaderboard();
+let boardLevel = 1;      // level tab shown on the leaderboard
+let highlight = null;    // the entry the player just saved
+let pendingEntry = null; // a top-ten result waiting for a name
 
 function levelLabel(level) {
   return `Level ${level.id} · ${level.name}`;
@@ -55,14 +63,69 @@ function showMenu() {
       best: best && { ...best, stars: rankStars(best.rank, config) },
     };
   });
-  const found = patternList.filter((p) => progress.seen.includes(p.id)).length;
-  renderMenu(
-    menuLevels,
-    config.ranks.length,
-    `📖 Fraud Encyclopedia · ${found}/${patternList.length}`,
-    showBriefing,
-  );
+  renderMenu(menuLevels, config.ranks.length, showBriefing);
+  updateEncyclopediaCount();
   showScreen('start');
+}
+
+function updateEncyclopediaCount() {
+  const found = patternList.filter((p) => progress.seen.includes(p.id)).length;
+  setEncyclopediaCount(found, patternList.length);
+}
+
+// ---- Leaderboard ----
+
+function showLeaderboard(levelId = boardLevel) {
+  boardLevel = levelId;
+  renderLeaderboard(levels, board, boardLevel, highlight, showLeaderboard);
+  showScreen('leaderboard');
+}
+
+// Turns whatever was typed into a short, tidy display name.
+function cleanName(raw) {
+  const name = raw.replace(/\s+/g, ' ').trim().slice(0, 16);
+  return name || 'Investigator';
+}
+
+function onSaveEntry(event) {
+  event.preventDefault();
+  if (!pendingEntry) {
+    return;
+  }
+  const name = cleanName(document.getElementById('entry-name').value);
+  saveLastName(name);
+  const { levelId, report } = pendingEntry;
+  highlight = addToLeaderboard(board, levelId, {
+    name,
+    score: report.score,
+    rank: report.rank,
+    accuracy: report.accuracy,
+    date: new Date().toISOString(),
+  });
+  boardLevel = levelId;
+  pendingEntry = null;
+  showEntrySaved();
+  sfx.correct();
+}
+
+function onClearBoard() {
+  if (window.confirm('Clear every score from the leaderboard on this device?')) {
+    board = clearLeaderboard();
+    highlight = null;
+    showLeaderboard();
+  }
+}
+
+function onNav(event) {
+  const screen = event.currentTarget.dataset.screen;
+  sfx.click();
+  if (screen === 'leaderboard') {
+    showLeaderboard();
+  } else if (screen === 'encyclopedia') {
+    showEncyclopedia();
+  } else {
+    showMenu();
+  }
 }
 
 function showEncyclopedia() {
@@ -159,7 +222,7 @@ function recordResult(report) {
   const previousBest = progress.best[level.id];
   const isNewBest = !previousBest || report.score > previousBest.score;
   if (isNewBest) {
-    progress.best[level.id] = { score: report.score, rank: report.rank };
+    progress.best[level.id] = { score: report.score, rank: report.rank, percent: report.percent };
   }
 
   let message;
@@ -196,6 +259,13 @@ function endShift() {
   shareText = buildShareText(report, extras.levelLabel);
   renderReport(report, extras);
   showScreen('report');
+
+  // Offer a place on the leaderboard if the score makes the top ten.
+  const place = boardPlace(board, shift.level.id, report.score);
+  pendingEntry = place ? { levelId: shift.level.id, report } : null;
+  if (place) {
+    showEntryForm(place, loadLastName());
+  }
   if (extras.unlocked) {
     sfx.unlock();
   } else {
@@ -273,6 +343,7 @@ function onDecide(decision) {
   if (!progress.seen.includes(currentCase.patternId)) {
     progress.seen.push(currentCase.patternId);
     saveProgress(progress);
+    updateEncyclopediaCount();
   }
 
   if (result.correct) {
@@ -342,9 +413,13 @@ async function start() {
   on('btn-briefing-back', showMenu);
   on('btn-again', () => showBriefing(shift.level.id));
   on('btn-menu', showMenu);
-  on('btn-encyclopedia', showEncyclopedia);
-  on('btn-encyclopedia-back', showMenu);
   on('btn-reset', resetProgress);
+  on('btn-view-board', () => showLeaderboard());
+  on('btn-clear-board', onClearBoard);
+  document.getElementById('entry-form').addEventListener('submit', onSaveEntry);
+  for (const link of document.querySelectorAll('.nav-link')) {
+    link.addEventListener('click', onNav);
+  }
   on('btn-share', onShare);
   on('btn-quit', quitShift);
   on('btn-sound', toggleSound);

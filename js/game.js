@@ -149,9 +149,12 @@ export function passMark(shift) {
 
 export function buildReport(shift) {
   const { stats, deck, config } = shift;
+  const max = maxScore(deck, config);
   return {
     score: stats.score,
-    rank: rankFor(stats.score, maxScore(deck, config), config),
+    rank: rankFor(stats.score, max, config),
+    // Score as a share of an all-correct shift, used on the menu gauges.
+    percent: max > 0 ? Math.max(0, Math.round((stats.score / max) * 100)) : 0,
     unlockTarget: passMark(shift),
     bestStreak: stats.bestStreak,
     fraudCaught: stats.fraudCaught,

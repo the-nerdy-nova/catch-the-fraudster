@@ -7,7 +7,7 @@
     "shiftSeconds": 360,
     "arrivalSeconds": 28,
     "patienceSeconds": 90,
-    "unlockPercent": 65
+    "unlockPercent": 75
   },
   {
     "id": 2,
@@ -17,7 +17,7 @@
     "shiftSeconds": 420,
     "arrivalSeconds": 28,
     "patienceSeconds": 90,
-    "unlockPercent": 65
+    "unlockPercent": 75
   },
   {
     "id": 3,
@@ -27,6 +27,6 @@
     "shiftSeconds": 450,
     "arrivalSeconds": 26,
     "patienceSeconds": 80,
-    "unlockPercent": 65
+    "unlockPercent": 75
   }
 ]
