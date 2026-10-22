@@ -1,7 +1,7 @@
 // The state of one shift: the clock, the queue and the running totals.
 // Nothing here touches the page; main.js asks ui.js to draw the result.
 
-import { scoreDecision, maxScore, rankFor } from './scoring.js';
+import { scoreDecision, maxScore, rankFor } from './scoring.js?v=202610222149';
 
 function shuffle(list) {
   const copy = [...list];

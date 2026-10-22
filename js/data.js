@@ -1,7 +1,9 @@
 // Loads the game content from the /data folder.
 
 async function loadJson(path) {
-  const response = await fetch(path);
+  // 'no-cache' asks the server whether the file changed, so players
+  // never mix old game content with new code.
+  const response = await fetch(path, { cache: 'no-cache' });
   if (!response.ok) {
     throw new Error(`Could not load ${path} (status ${response.status})`);
   }

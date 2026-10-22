@@ -1,26 +1,26 @@
 // Starts the game and connects the buttons to the game logic.
 
-import { loadData } from './data.js';
+import { loadData } from './data.js?v=202610222149';
 import {
   createShift, startNext, advance, openClue, decide,
   timeLeft, isLastCase, buildReport, passMark,
-} from './game.js';
-import { rankStars } from './scoring.js';
+} from './game.js?v=202610222149';
+import { rankStars } from './scoring.js?v=202610222149';
 import {
   showScreen, showNotice, setSoundButton, renderMenu, renderBriefing,
   renderHud, renderQueue, renderCase, renderReveal, renderReport,
   toggleCluePanel, flashTimeCost, popScore, flashScreen, setShareStatus,
   setEncyclopediaCount, showEntryForm, showEntrySaved,
-} from './ui.js';
-import { renderEncyclopedia } from './encyclopedia.js';
-import { renderLeaderboard } from './leaderboard.js';
+} from './ui.js?v=202610222149';
+import { renderEncyclopedia } from './encyclopedia.js?v=202610222149';
+import { renderLeaderboard } from './leaderboard.js?v=202610222149';
 import {
   loadProgress, saveProgress, clearProgress, loadSoundOn, saveSoundOn,
   loadLeaderboard, boardPlace, addToLeaderboard, clearLeaderboard,
   loadLastName, saveLastName,
-} from './storage.js';
-import { buildShareText, copyText } from './share.js';
-import { sfx, setSoundEnabled } from './sfx.js';
+} from './storage.js?v=202610222149';
+import { buildShareText, copyText } from './share.js?v=202610222149';
+import { sfx, setSoundEnabled } from './sfx.js?v=202610222149';
 
 const TICK_MS = 200;
 
@@ -404,7 +404,14 @@ async function start() {
   setSoundEnabled(soundOn);
   setSoundButton(soundOn);
 
-  const on = (id, handler) => document.getElementById(id).addEventListener('click', handler);
+  const on = (id, handler) => {
+    const button = document.getElementById(id);
+    if (button) {
+      button.addEventListener('click', handler);
+    } else {
+      console.warn(`Button #${id} is missing from index.html`);
+    }
+  };
   on('btn-approve', () => onDecide('approve'));
   on('btn-decline', () => onDecide('decline'));
   on('btn-investigate', onInvestigate);

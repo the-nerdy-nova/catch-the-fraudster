@@ -49,7 +49,10 @@ GitHub Pages hosts the files as they are, for free. On a free GitHub account the
 3. On GitHub, open the repository's **Settings**, then **Pages**. Under "Build and deployment", choose **Deploy from a branch**, pick the `main` branch and the `/ (root)` folder, and save.
 4. After a minute or two the game is live at `https://YOUR-USERNAME.github.io/catch-the-fraudster/`.
 
-To publish a later change, commit it and run `git push`.
+To publish a later change:
+
+1. Run `python3 tools/set-version.py`. This stamps a new version on the script and style links so players' browsers download the new files instead of using old saved copies.
+2. Commit and run `git push`.
 
 ## Changing the game
 
